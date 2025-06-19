@@ -67,12 +67,14 @@ export const RegistrationForm = () => {
           Already have an account?
         </Link>
         {form.formState.errors.root?.message && (
-          <p className="text-red-500">{form.formState.errors.root?.message}</p>
+          <p className="py-2 px-3 rounded-md text-destructive bg-destructive/10">
+            {form.formState.errors.root?.message}
+          </p>
         )}
         <SocialSection />
         <Button
           disabled={form.formState.isSubmitting}
-          className="text-center text-md mt-4 w-2/4 mx-auto"
+          className="text-center text-md mt-4 w-1/2 mx-auto"
         >
           {form.formState.isSubmitting ? 'Register' : 'Submitting'}
         </Button>

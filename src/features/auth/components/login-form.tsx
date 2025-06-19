@@ -70,7 +70,7 @@ export const LoginForm = () => {
 
         <Button
           disabled={form.formState.isSubmitting}
-          className="text-center text-md mt-4 w-2/4 mx-auto"
+          className="text-center text-md mt-4 w-1/2 mx-auto"
         >
           {form.formState.isSubmitting ? 'Submitting' : 'Login'}
         </Button>

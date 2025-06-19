@@ -1,6 +1,6 @@
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
-import { PRIVATE_ROUTES, PUBLIC_ROUTES } from './features/shared/lib/constants';
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from './lib/constants';
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req });
@@ -21,5 +21,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/register', '/chats/:path*'],
+  matcher: ['/', '/register', '/chats/:path*', '/users/:path*'],
 };

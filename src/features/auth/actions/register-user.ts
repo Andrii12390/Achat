@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/features/shared/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 
 interface IUserPayload {
