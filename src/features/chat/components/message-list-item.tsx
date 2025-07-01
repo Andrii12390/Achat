@@ -5,6 +5,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 import { cn, formatMessageDate } from '@/lib/utils';
+import { Trash2 } from 'lucide-react';
 
 import Image from 'next/image';
 
@@ -44,10 +45,15 @@ export const MessageListItem = ({ isSender, text, imageUrl, createdAt, handleDel
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem
-            className="bg-destructive/10 text-destructive"
+            className="hover:bg-destructive/10 text-destructive !hover:text-destructive"
             onClick={handleDelete}
           >
-            Delete message
+            <Trash2
+              className="text-destructive"
+              size={24}
+              strokeWidth={1.7}
+            />
+            <span>Delete Message</span>
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

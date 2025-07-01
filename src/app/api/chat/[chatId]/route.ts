@@ -37,3 +37,28 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ chatI
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }
+
+export async function PATCH(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
+  try {
+    const user = await getUser();
+
+    if (!user) {
+      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
+    }
+
+    const { chatId } = await params;
+
+    await prisma.userChat.delete({
+      where: {
+        userId_chatId: {
+          userId: user.id,
+          chatId,
+        },
+      },
+    });
+
+    return apiSuccess(null, ReasonPhrases.OK, StatusCodes.OK);
+  } catch {
+    return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+}

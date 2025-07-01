@@ -18,6 +18,7 @@ async function ChatPage({ params }: { params: Promise<{ chatId: string }> }) {
   return (
     <section className="w-full h-full flex flex-col ">
       <ChatHeader
+        chatId={chatId}
         title={displayData.title}
         imageUrl={displayData.imageUrl}
         avatarColor={displayData.avatarColor}

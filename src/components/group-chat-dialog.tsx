@@ -44,6 +44,7 @@ export const GroupChatDialog = ({ users }: Props) => {
       );
       if (res.success) {
         router.push(`${PRIVATE_ROUTES.CHATS}/${res.data}`);
+        setIsOpen(false);
       } else {
         toast.error('Failed to create group chat');
       }
