@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -39,12 +37,17 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-icon: var(--icon);
+  --color-icon-accent: var(--icon-accent);
+  --color-icon-hover: var(--icon-hover);
+  --color-primary-message: var(--primary-message);
 }
 
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.3211 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
@@ -74,9 +77,14 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.606 0.25 292.717);
+
+  --icon: oklch(55.1% 0.027 264.364);
+  --icon-accent: oklch(37.3% 0.034 259.733);
+  --icon-hover: oklch(87.2% 0.01 258.338 / 0.3);
+  --primary-message: oklch(0.541 0.281 293.009 / 0.2);
 }
 
-.dark {
+[data-theme='dark'] {
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);
@@ -108,6 +116,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.541 0.281 293.009);
+
+  --icon: oklch(70.7% 0.022 261.325);
+  --icon-accent: oklch(87.2% 0.01 258.338);
+  --icon-hover: oklch(37.3% 0.034 259.733 / 0.3);
+  --primary-message: oklch(0.541 0.281 293.009);
 }
 
 @layer base {
@@ -117,5 +130,9 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 

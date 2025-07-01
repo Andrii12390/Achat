@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/types';
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 
 export function createApiResponse<T>(
@@ -26,9 +26,50 @@ export function apiError(message = 'Error', status = StatusCodes.BAD_REQUEST) {
   createApiResponse(false, undefined, message, status);
 }
 
-export const api = axios.create({
-  baseURL: '/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+class ApiClient {
+  private client: AxiosInstance;
+
+  constructor() {
+    this.client = axios.create({
+      baseURL: '/api',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    this.client.interceptors.response.use(
+      response => response,
+      error => {
+        const errorMessage = error.response?.data?.message || 'Something went wrong';
+        const errorResponse: ApiResponse<never> = {
+          success: false,
+          message: errorMessage,
+          status: error.response?.status || StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+        return Promise.reject(errorResponse);
+      },
+    );
+  }
+
+  async get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    const response = await this.client.get<ApiResponse<T>>(url, config);
+    return response.data;
+  }
+
+  async post<T, D>(url: string, data?: D, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    const response = await this.client.post<ApiResponse<T>>(url, data, config);
+    return response.data;
+  }
+
+  async put<T, D>(url: string, data?: D, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    const response = await this.client.put<ApiResponse<T>>(url, data, config);
+    return response.data;
+  }
+
+  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    const response = await this.client.delete<ApiResponse<T>>(url, config);
+    return response.data;
+  }
+}
+
+export const api = new ApiClient();

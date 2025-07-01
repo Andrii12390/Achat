@@ -5,6 +5,7 @@ import { prisma } from '../prisma';
 import bcrypt from 'bcrypt';
 import { NextAuthOptions } from 'next-auth';
 import { PROVIDERS } from '@/features/auth/lib/constants';
+import { registerUser } from '@/features/auth/actions';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -48,7 +49,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: process.env.TOKEN_MAX_AGE ? +process.env.TOKEN_MAX_AGE : 1000 * 60 * 60,
   },
   callbacks: {
     async signIn({ user, account }) {
@@ -62,13 +63,11 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!existingUser) {
-          await prisma.user.create({
-            data: {
-              email: user.email!,
-              username: user.name!,
-              imageUrl: user.image,
-              isVerified: true,
-            },
+          await registerUser({
+            email: user.email!,
+            username: user.name!,
+            imageUrl: user.image!,
+            isVerified: true,
           });
         }
       }

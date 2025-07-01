@@ -1,16 +1,26 @@
 'use client';
 
+import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth/lib/schemas';
+import { SocialSection, TextInputField } from '@/features/auth/components';
+import { registerUser } from '@/features/auth/actions';
+import { PROVIDERS } from '@/features/auth/lib/constants';
+import { PRIVATE_ROUTES } from '@/lib/constants';
+
 import { Form } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { type TRegistrationValues, RegistrationFormSchema } from '@/features/auth/lib/schemas';
-import { Button } from '@/components/ui/button';
-import { SocialSection, TextInputField } from '@/features/auth/components';
+
+import { signIn } from 'next-auth/react';
+
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { registerUser } from '@/features/auth/actions';
 
 export const RegistrationForm = () => {
-  const form = useForm<TRegistrationValues>({
+  const router = useRouter();
+
+  const form = useForm<RegistrationValues>({
     resolver: zodResolver(RegistrationFormSchema),
     defaultValues: {
       email: '',
@@ -20,9 +30,18 @@ export const RegistrationForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<TRegistrationValues> = async values => {
+  const onSubmit: SubmitHandler<RegistrationValues> = async values => {
     try {
-      await registerUser(values);
+      const res = await registerUser(values);
+      if (res) {
+        const signInRes = await signIn(PROVIDERS.CREDENTIALS, {
+          ...values,
+          redirect: false,
+        });
+        if (signInRes?.ok) {
+          router.push(PRIVATE_ROUTES.CHATS);
+        }
+      }
     } catch (error) {
       form.setError('root', {
         message: error instanceof Error ? error.message : 'Something went wrong',
@@ -76,7 +95,7 @@ export const RegistrationForm = () => {
           disabled={form.formState.isSubmitting}
           className="text-center text-md mt-4 w-1/2 mx-auto"
         >
-          {form.formState.isSubmitting ? 'Register' : 'Submitting'}
+          {form.formState.isSubmitting ? 'Submitting' : 'Register'}
         </Button>
       </form>
     </Form>

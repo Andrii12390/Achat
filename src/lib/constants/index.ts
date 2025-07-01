@@ -5,4 +5,7 @@ export const PUBLIC_ROUTES = {
 
 export const PRIVATE_ROUTES = {
   CHATS: '/chats',
+  USERS: '/users',
 } as const;
+
+export const DEFAULT_GROUP_IMAGE = '/default-group.png';
