@@ -85,6 +85,8 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.username = user.username;
         token.imageUrl = user.imageUrl;
+        token.avatarColor = user.avatarColor;
+        token.isVerified = user.isVerified;
       }
 
       return token;
@@ -95,6 +97,8 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email;
         session.user.username = token.username;
         session.user.imageUrl = token.imageUrl;
+        session.user.avatarColor = token.avatarColor;
+        session.user.isVerified = token.isVerified;
       }
 
       return session;

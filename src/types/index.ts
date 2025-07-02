@@ -40,3 +40,5 @@ export type ExtendedMessage = Message & {
     imageUrl: string | null;
   };
 };
+
+export type Theme = 'dark' | 'light' | 'system';

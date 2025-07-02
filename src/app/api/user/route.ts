@@ -45,7 +45,7 @@ export async function DELETE() {
       },
     });
 
-    return apiSuccess(null, ReasonPhrases.NO_CONTENT, StatusCodes.NO_CONTENT);
+    return apiSuccess(user, ReasonPhrases.OK, StatusCodes.OK);
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }

@@ -1,20 +1,23 @@
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
+type AvatarSize = 'sm' | 'md' | 'xl';
+
 interface Props {
   username: string;
   avatarColor: string;
   imageUrl: string | null;
-  isOnline: boolean;
-  size?: 'sm' | 'md';
+  isOnline?: boolean;
+  size?: AvatarSize;
 }
 
 const sizeConfig = {
   sm: { dimension: 28, text: 'text-sm', indicator: 'size-2', avatar: 'size-7' },
   md: { dimension: 48, text: 'text-lg', indicator: 'size-2.5', avatar: 'size-12' },
+  xl: { dimension: 96, text: 'text-xl', indicator: 'size-3.5', avatar: 'size-24' },
 };
 
-const OnlineIndicator = ({ isOnline, size }: { isOnline: boolean; size: 'sm' | 'md' }) => {
+const OnlineIndicator = ({ isOnline = false, size }: { isOnline?: boolean; size: AvatarSize }) => {
   if (!isOnline) return null;
   return (
     <div

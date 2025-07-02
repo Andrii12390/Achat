@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { Users, MessageCircle } from 'lucide-react';
+import { Users, MessageCircle, User } from 'lucide-react';
 import { PRIVATE_ROUTES } from '@/lib/constants';
 
 export const useMenu = () => {
@@ -21,6 +21,12 @@ export const useMenu = () => {
         icon: Users,
         text: 'Users',
         isCurrent: pathname.startsWith(PRIVATE_ROUTES.USERS),
+      },
+      {
+        href: PRIVATE_ROUTES.PROFILE,
+        icon: User,
+        text: 'Profile',
+        isCurrent: pathname.startsWith(PRIVATE_ROUTES.PROFILE),
       },
     ],
     [pathname],

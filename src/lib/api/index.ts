@@ -23,7 +23,7 @@ export function apiSuccess<T>(data?: T, message = 'Success', status = StatusCode
 }
 
 export function apiError(message = 'Error', status = StatusCodes.BAD_REQUEST) {
-  createApiResponse(false, undefined, message, status);
+  return createApiResponse(false, undefined, message, status);
 }
 
 class ApiClient {

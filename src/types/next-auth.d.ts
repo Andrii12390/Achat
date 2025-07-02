@@ -6,7 +6,9 @@ declare module 'next-auth' {
       id: string;
       email: string;
       username: string;
+      avatarColor: string;
       imageUrl: string | null;
+      isVerified: boolean;
     } & DefaultSession['user'];
   }
 }
@@ -16,6 +18,8 @@ declare module 'next-auth/jwt' {
     id: string;
     email: string;
     username: string;
+    avatarColor: string;
+    isVerified: boolean;
     imageUrl: string | null;
   }
 }

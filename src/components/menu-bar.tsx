@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useMenu } from '@/hooks';
-import { User } from 'lucide-react';
 
 export const Menubar = () => {
   const menu = useMenu();
@@ -31,16 +30,6 @@ export const Menubar = () => {
             </Link>
           </li>
         ))}
-        <li>
-          <button className="py-2 px-4 rounded-md hover:bg-icon-hover text-icon hover:text-icon-accent cursor-pointer">
-            <User
-              size={24}
-              strokeWidth={1.7}
-              className="mx-auto"
-            />
-            <p className="text-xs font-medium mt-2">Profile</p>
-          </button>
-        </li>
       </ul>
     </nav>
   );
