@@ -1,10 +1,10 @@
 import { getUser } from '@/actions';
 import {
+  Profile,
   ProfileHeader,
-  ProfileInfo,
-  ProfilePreferences,
-  ProfileAccountManagement,
-} from '@/features/user/components';
+  AccountPreferences,
+  AccountManagement,
+} from '@/features/profile/components';
 
 async function ProfilePage() {
   const user = await getUser();
@@ -14,15 +14,15 @@ async function ProfilePage() {
   return (
     <div className="py-4 space-y-4">
       <ProfileHeader />
-      <ProfileInfo
+      <Profile
         username={user.username}
         email={user.email}
         avatarColor={user.avatarColor}
         imageUrl={user.imageUrl}
         isVerified={user.isVerified}
       />
-      <ProfilePreferences />
-      <ProfileAccountManagement />
+      <AccountPreferences />
+      <AccountManagement />
     </div>
   );
 }

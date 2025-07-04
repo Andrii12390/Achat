@@ -3,21 +3,19 @@
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { userService } from '../../services';
+
+import { userService } from '@/features/user/services';
+
 import { signOut } from 'next-auth/react';
 
-export const ProfileAccountManagement = () => {
+export const AccountManagement = () => {
   const handleDelete = async () => {
-    try {
-      const res = await userService.delete();
+    const res = await userService.delete();
 
-      if (!res.success) {
-        toast.error('Failed to delete account');
-      } else {
-        signOut();
-      }
-    } catch {
+    if (!res.success) {
       toast.error('Failed to delete account');
+    } else {
+      signOut();
     }
   };
 
@@ -29,7 +27,7 @@ export const ProfileAccountManagement = () => {
         possibility of recovery.
       </p>
       <Button
-        variant={'outline'}
+        variant="outline"
         className="text-secondary-foreground/80 hover:bg-destructive/20 hover:text-destructive"
         onClick={handleDelete}
       >

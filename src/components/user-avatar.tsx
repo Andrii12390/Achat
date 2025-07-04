@@ -14,7 +14,7 @@ interface Props {
 const sizeConfig = {
   sm: { dimension: 28, text: 'text-sm', indicator: 'size-2', avatar: 'size-7' },
   md: { dimension: 48, text: 'text-lg', indicator: 'size-2.5', avatar: 'size-12' },
-  xl: { dimension: 96, text: 'text-xl', indicator: 'size-3.5', avatar: 'size-24' },
+  xl: { dimension: 96, text: 'text-4xl', indicator: 'size-3.5', avatar: 'size-24' },
 };
 
 const OnlineIndicator = ({ isOnline = false, size }: { isOnline?: boolean; size: AvatarSize }) => {
