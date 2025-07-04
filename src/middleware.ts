@@ -1,6 +1,6 @@
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
-import { PRIVATE_ROUTES, PUBLIC_ROUTES } from './lib/constants';
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from './constants';
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req });

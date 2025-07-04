@@ -36,8 +36,10 @@ export const MessageListItem = ({ isSender, text, imageUrl, createdAt, handleDel
               <Image
                 src={imageUrl!}
                 alt="Message with image"
-                width={150}
-                height={150}
+                sizes="25vw"
+                className="w-full h-auto"
+                width={250}
+                height={250}
               />
             )}
             <p className="mt-1 text-xs text-secondary-foreground">{formatMessageDate(createdAt)}</p>

@@ -1,4 +1,4 @@
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 import { cn, formatMessageDate } from '@/lib/utils';
 
 import { type Message } from '@/types';
@@ -23,6 +23,12 @@ export const ChatListItem = ({
   lastMessage,
   isActive,
 }: Props) => {
+  const lastMessageText = lastMessage?.text
+    ? lastMessage?.text
+    : lastMessage?.imageUrl
+      ? 'Sent an image'
+      : 'No messages yet';
+
   return (
     <li
       className={cn(
@@ -63,7 +69,7 @@ export const ChatListItem = ({
                 </span>
               )}
             </div>
-            <p className="text-xs">{lastMessage?.text ?? 'No messages yet'}</p>
+            <p className="text-xs">{lastMessageText}</p>
           </div>
         </div>
       </Link>

@@ -12,7 +12,7 @@ import { EmptyState, UserListItem } from '.';
 
 import { chatService } from '@/features/chat/services';
 
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 import { useDebounce } from '@/hooks';
 

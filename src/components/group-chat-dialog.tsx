@@ -17,7 +17,7 @@ import { Button } from './ui/button';
 import { chatService } from '@/features/chat/services';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   users: User[];

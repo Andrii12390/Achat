@@ -1,6 +1,6 @@
 import { getUser } from '@/actions';
 import { apiError, apiSuccess } from '@/lib/api';
-import { DEFAULT_GROUP_IMAGE } from '@/lib/constants';
+import { DEFAULT_GROUP_IMAGE } from '@/constants';
 import { prisma } from '@/lib/prisma';
 import { Chat } from '@prisma/client';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';

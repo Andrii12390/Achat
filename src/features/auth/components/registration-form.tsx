@@ -4,7 +4,7 @@ import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth
 import { SocialSection, TextInputField } from '@/features/auth/components';
 import { registerUser } from '@/features/auth/actions';
 import { PROVIDERS } from '@/features/auth/lib/constants';
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';

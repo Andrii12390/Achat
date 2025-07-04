@@ -1,6 +1,6 @@
 'use client';
 
-import { DEFAULT_GROUP_IMAGE } from '@/lib/constants';
+import { DEFAULT_GROUP_IMAGE } from '@/constants';
 
 import Image from 'next/image';
 

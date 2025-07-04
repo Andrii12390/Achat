@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import { PROVIDERS } from '@/features/auth/lib/constants';
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 export const SocialSection = () => {
   const signInGoogle = async () => {

@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import { Users, MessageCircle, User } from 'lucide-react';
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 export const useMenu = () => {
   const pathname = usePathname();

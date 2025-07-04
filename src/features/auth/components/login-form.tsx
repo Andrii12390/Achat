@@ -3,7 +3,7 @@
 import { type LoginValues, LoginFormSchema } from '@/features/auth/lib/schemas';
 import { SocialSection, TextInputField } from '@/features/auth/components';
 import { PROVIDERS } from '@/features/auth/lib/constants';
-import { PRIVATE_ROUTES } from '@/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';

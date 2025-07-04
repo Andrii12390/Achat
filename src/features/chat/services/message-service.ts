@@ -1,10 +1,14 @@
 import { api } from '@/lib/api';
 import { type ExtendedMessage } from '@/types';
 
-interface CreateMessagePayload {
+interface CreateTextMessagePayload {
   chatId: string;
-  text: string | null;
-  imageUrl: string | null;
+  text: string;
+}
+
+interface CreateImageMessagePayload {
+  chatId: string;
+  formData: FormData;
 }
 
 interface DeleteMessagePayload {
@@ -13,10 +17,15 @@ interface DeleteMessagePayload {
 }
 
 export const messageService = {
-  create: ({ chatId, text, imageUrl }: CreateMessagePayload) =>
-    api.post<ExtendedMessage, Omit<CreateMessagePayload, 'chatId'>>(`/chat/${chatId}/message`, {
+  sendText: ({ chatId, text }: CreateTextMessagePayload) =>
+    api.post<ExtendedMessage, Omit<CreateTextMessagePayload, 'chatId'>>(`/chat/${chatId}/message`, {
       text,
-      imageUrl,
+    }),
+  sendImage: ({ chatId, formData }: CreateImageMessagePayload) =>
+    api.post<ExtendedMessage, FormData>(`/chat/${chatId}/message`, formData, {
+      headers: {
+        'Content-Type': undefined,
+      },
     }),
   delete: ({ chatId, messageId }: DeleteMessagePayload) =>
     api.delete<Omit<DeleteMessagePayload, 'chatId'>>(`/chat/${chatId}/message/${messageId}`),

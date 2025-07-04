@@ -1,4 +1,5 @@
 import { getUser } from '@/actions';
+import { USER_AVATARS_BUCKET_FOLDER } from '@/constants';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { s3Service } from '@/lib/s3/s3-service';
@@ -20,7 +21,11 @@ export async function POST(req: Request) {
       return apiError(ReasonPhrases.BAD_REQUEST, StatusCodes.BAD_REQUEST);
     }
 
-    const fileUrl = await s3Service.uploadFile(Buffer.from(await file.arrayBuffer()), file.name);
+    const fileUrl = await s3Service.uploadFile(
+      Buffer.from(await file.arrayBuffer()),
+      file.name,
+      USER_AVATARS_BUCKET_FOLDER,
+    );
 
     await prisma.user.update({
       where: {
