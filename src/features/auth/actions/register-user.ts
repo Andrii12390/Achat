@@ -1,15 +1,25 @@
 'use server';
 
-import { prisma } from '@/features/shared/lib/prisma';
+import { prisma } from '@/lib/prisma';
+import { getRandomAvatarColor } from '@/features/auth/lib/utils';
+
 import bcrypt from 'bcrypt';
 
-interface IUserPayload {
+interface UserPayload {
   email: string;
   username: string;
-  password: string;
+  password?: string;
+  imageUrl?: string;
+  isVerified?: boolean;
 }
 
-export async function registerUser({ email, username, password }: IUserPayload) {
+export async function registerUser({
+  email,
+  username,
+  password,
+  imageUrl,
+  isVerified = false,
+}: UserPayload) {
   try {
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -21,11 +31,16 @@ export async function registerUser({ email, username, password }: IUserPayload) 
       throw new Error('User with this email already exists');
     }
 
+    const hashedPassword = password ? await bcrypt.hash(password, 10) : null;
+
     await prisma.user.create({
       data: {
         email,
         username,
-        password: await bcrypt.hash(password, 10),
+        avatarColor: getRandomAvatarColor(),
+        password: hashedPassword,
+        isVerified,
+        imageUrl,
       },
     });
 

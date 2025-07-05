@@ -2,12 +2,13 @@ import { Button } from '@/components/ui/button';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import { PROVIDERS } from '@/features/auth/lib/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 export const SocialSection = () => {
   const signInGoogle = async () => {
     try {
       await signIn(PROVIDERS.GOOGLE, {
-        callbackUrl: '/chats',
+        callbackUrl: PRIVATE_ROUTES.CHATS,
       });
     } catch {
       toast.error('Authentication via Google failed');
@@ -17,7 +18,7 @@ export const SocialSection = () => {
   const signInGitHub = async () => {
     try {
       await signIn(PROVIDERS.GITHUB, {
-        callbackUrl: '/chats',
+        callbackUrl: PRIVATE_ROUTES.CHATS,
       });
     } catch {
       toast.error('Authentication via GitHub failed');
