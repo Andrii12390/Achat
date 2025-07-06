@@ -16,24 +16,29 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { useChatActions } from '@/features/chat/hooks';
+import { useOnlineUsers } from '@/hooks/use-online-users';
 
 interface Props {
+  userId: string | null;
   chatId: string;
   title: string;
   avatarColor: string;
   imageUrl: string | null;
-  isOnline?: boolean;
   isGroup?: boolean;
 }
 
 export const ChatHeader = ({
+  userId,
   chatId,
   title,
   imageUrl,
   avatarColor,
-  isOnline = false,
   isGroup = false,
 }: Props) => {
+  const onlineUsers = useOnlineUsers();
+
+  const isOnline = !!onlineUsers.find(u => u.id === userId);
+
   const { deleteChat, leaveGroup } = useChatActions(chatId);
 
   return (

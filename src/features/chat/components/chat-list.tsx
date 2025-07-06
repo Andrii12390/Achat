@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 
-import { type Chat } from '@/types';
+import type { Chat } from '@/types';
 
 import { SearchInput } from '@/components';
 import { ChatListItem, EmptyState } from '.';
@@ -10,17 +10,20 @@ import { ChatListItem, EmptyState } from '.';
 import { useDebounce } from '@/hooks';
 
 import { usePathname } from 'next/navigation';
+import { useChats } from '../hooks';
 
 interface Props {
-  chats: Chat[];
+  initialChats: Chat[];
+  userEmail: string;
 }
 
-export const ChatList = ({ chats }: Props) => {
+export const ChatList = ({ initialChats, userEmail }: Props) => {
+  const chats = useChats({ initialChats, userEmail });
+
   const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query);
 
   const pathname = usePathname();
-
-  const debouncedQuery = useDebounce(query);
 
   const filteredChats = useMemo(() => {
     return chats.filter(chat =>

@@ -1,7 +1,8 @@
 import { getUser } from '@/actions';
-import { MESSAGE_IMAGES_BUCKET_FOLDER } from '@/constants';
+import { MESSAGE_IMAGES_BUCKET_FOLDER, PUSHER_EVENTS } from '@/constants';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
+import { pusherServer } from '@/lib/pusher';
 import { s3Service } from '@/lib/s3/s3-service';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
@@ -49,8 +50,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ chatId:
       const formData = await req.formData();
       const file = formData.get('file');
 
-      if (!(file instanceof File))
+      if (!(file instanceof File)) {
         return apiError(ReasonPhrases.BAD_REQUEST, StatusCodes.BAD_REQUEST);
+      }
 
       const fileUrl = await s3Service.uploadFile(
         Buffer.from(await file.arrayBuffer()),
@@ -63,6 +65,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ chatId:
         userId: user.id,
         data: { imageUrl: fileUrl },
       });
+
+      await pusherServer.trigger(chatId, PUSHER_EVENTS.NEW_MESSAGE, newMessage);
 
       return apiSuccess(newMessage, ReasonPhrases.CREATED, StatusCodes.CREATED);
     }
@@ -79,6 +83,22 @@ export async function POST(req: Request, { params }: { params: Promise<{ chatId:
         userId: user.id,
         data: { text },
       });
+
+      await pusherServer.trigger(chatId, PUSHER_EVENTS.NEW_MESSAGE, newMessage);
+
+      const chat = await prisma.chat.findUnique({
+        where: { id: chatId },
+        select: { id: true, participants: { select: { user: true } } },
+      });
+
+      Promise.all(
+        chat!.participants.map(p =>
+          pusherServer.trigger(p.user.email, PUSHER_EVENTS.UPDATE_CHAT, {
+            chatId: chat?.id,
+            newMessage,
+          }),
+        ),
+      );
 
       return apiSuccess(newMessage, ReasonPhrases.CREATED, StatusCodes.CREATED);
     }
