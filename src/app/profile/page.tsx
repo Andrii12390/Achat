@@ -12,7 +12,7 @@ async function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className="py-4 space-y-4">
+    <div className="py-4">
       <ProfileHeader />
       <Profile
         username={user.username}

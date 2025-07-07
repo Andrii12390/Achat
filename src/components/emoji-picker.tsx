@@ -35,6 +35,7 @@ export const EmojiPicker = ({ onPick }: Props) => {
         <div className="absolute bottom-12 right-0">
           <Picker
             autoFocusSearch={false}
+            width={280}
             onEmojiClick={e => {
               onPick(e);
               setOpen(false);

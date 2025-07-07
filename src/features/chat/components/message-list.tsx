@@ -1,31 +1,18 @@
 'use client';
 
-import { messageService } from '@/features/chat/services';
-
 import { type ExtendedMessage } from '@/types';
 
-import { MessageListItem } from '.';
-import { toast } from 'react-toastify';
+import { MessageListItem } from '@/features/chat/components';
+import { useMessages } from '@/features/chat/hooks';
 
 interface Props {
   chatId: string;
   userId: string;
-  messages: ExtendedMessage[];
+  initialMessages: ExtendedMessage[];
 }
 
-export const MessageList = ({ chatId, userId, messages }: Props) => {
-  const handleDelete = async (senderId: string, messageId: string) => {
-    if (senderId !== userId) {
-      toast.error('You can delete only your own messages if you are not an Admin');
-      return;
-    }
-
-    const res = await messageService.delete({ chatId, messageId });
-
-    if (!res.success) {
-      toast.error('Failed to delete message');
-    }
-  };
+export const MessageList = ({ chatId, userId, initialMessages }: Props) => {
+  const { messages, handleDelete } = useMessages({ chatId, userId, initialMessages });
 
   return (
     <div className="h-full overflow-y-auto no-scrollbar px-6 py-4 bg-secondary/30">

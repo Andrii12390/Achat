@@ -12,6 +12,7 @@ export const getChatDisplayData = (chat: Partial<Chat>, currentUser: Partial<Use
   const otherUser = chat.participants?.find(p => p.userId !== currentUser.id);
 
   return {
+    userId: otherUser?.userId ?? '',
     title: otherUser?.user.username ?? '',
     imageUrl: otherUser?.user.imageUrl ?? '',
     avatarColor: otherUser?.user.avatarColor ?? '',

@@ -15,12 +15,15 @@ import { chatService } from '@/features/chat/services';
 import { PRIVATE_ROUTES } from '@/constants';
 
 import { useDebounce } from '@/hooks';
+import { useOnlineUsers } from '@/hooks/use-online-users';
 
 interface Props {
   users: User[];
 }
 
 export const UserList = ({ users }: Props) => {
+  const onlineUsers = useOnlineUsers();
+
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query);
 
@@ -45,14 +48,14 @@ export const UserList = ({ users }: Props) => {
 
   return (
     <>
-      <div className="py-2 px-4">
+      <div className="w-full sticky top-0 bg-search-section -translate-y-1 z-50 py-2 px-4">
         <SearchInput
           placeholder="Search users..."
           query={query}
           setQuery={setQuery}
         />
       </div>
-      <ul className="bg-secondary/20">
+      <ul className="bg-search-secttion">
         {filteredUsers.length ? (
           filteredUsers.map(user => (
             <li
@@ -61,7 +64,7 @@ export const UserList = ({ users }: Props) => {
               onClick={() => handleCreateChat(user.id)}
             >
               <UserListItem
-                isOnline={false}
+                isOnline={!!onlineUsers.find(u => u.id === user.id)}
                 avatarColor={user.avatarColor}
                 username={user.username}
                 imageUrl={user.imageUrl}

@@ -1,6 +1,8 @@
 import { getUser } from '@/actions';
+import { PUSHER_EVENTS } from '@/constants';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
+import { pusherServer } from '@/lib/pusher';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
@@ -26,11 +28,18 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ chatI
       return apiError(ReasonPhrases.FORBIDDEN, StatusCodes.FORBIDDEN);
     }
 
-    await prisma.chat.delete({
+    const deletedChat = await prisma.chat.delete({
       where: {
         id: chatId,
       },
+      select: { id: true, participants: { select: { user: true } } },
     });
+
+    Promise.all(
+      deletedChat.participants.map(p =>
+        pusherServer.trigger(p.user.email, PUSHER_EVENTS.DELETE_CHAT, deletedChat.id),
+      ),
+    );
 
     return apiSuccess(null, ReasonPhrases.OK, StatusCodes.OK);
   } catch {

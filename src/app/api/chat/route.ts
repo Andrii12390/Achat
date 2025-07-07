@@ -1,13 +1,15 @@
 import { getUser } from '@/actions';
 import { apiError, apiSuccess } from '@/lib/api';
-import { DEFAULT_GROUP_IMAGE } from '@/constants';
+import { DEFAULT_GROUP_IMAGE, PUSHER_EVENTS } from '@/constants';
 import { prisma } from '@/lib/prisma';
 import { Chat } from '@prisma/client';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { pusherServer } from '@/lib/pusher';
 
 export async function POST(req: Request) {
   try {
     const currentUser = await getUser();
+
     if (!currentUser) {
       return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
     }
@@ -39,7 +41,14 @@ export async function POST(req: Request) {
             },
           },
         },
+        include: { participants: { select: { user: true } } },
       });
+
+      Promise.all(
+        chat.participants.map(p =>
+          pusherServer.trigger(p.user.email, PUSHER_EVENTS.NEW_CHAT, chat),
+        ),
+      );
 
       return apiSuccess(chat.id, ReasonPhrases.CREATED, StatusCodes.CREATED);
     }
@@ -57,6 +66,7 @@ export async function POST(req: Request) {
         where: { id: { in: uniqueIds } },
         select: { id: true },
       });
+
       if (users.length !== uniqueIds.length) {
         return apiError('Some users not found', StatusCodes.NOT_FOUND);
       }
@@ -75,7 +85,14 @@ export async function POST(req: Request) {
             },
           },
         },
+        include: { participants: { select: { user: true } } },
       });
+
+      Promise.all(
+        chat.participants.map(p =>
+          pusherServer.trigger(p.user.email, PUSHER_EVENTS.NEW_CHAT, chat),
+        ),
+      );
 
       return apiSuccess(chat.id, ReasonPhrases.CREATED, StatusCodes.CREATED);
     }

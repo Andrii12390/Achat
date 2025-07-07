@@ -42,6 +42,7 @@
   --color-icon-accent: var(--icon-accent);
   --color-icon-hover: var(--icon-hover);
   --color-primary-message: var(--primary-message);
+  --color-search-section: var(--search-section);
 }
 
 :root {
@@ -82,6 +83,7 @@
   --icon-accent: oklch(37.3% 0.034 259.733);
   --icon-hover: oklch(87.2% 0.01 258.338 / 0.3);
   --primary-message: oklch(0.541 0.281 293.009 / 0.2);
+  --search-section: oklch(0.994 0 0);
 }
 
 [data-theme='dark'] {
@@ -121,6 +123,7 @@
   --icon-accent: oklch(87.2% 0.01 258.338);
   --icon-hover: oklch(37.3% 0.034 259.733 / 0.3);
   --primary-message: oklch(0.541 0.281 293.009);
+  --search-section: oklch(0.1693 0.0041 285.95);
 }
 
 @layer base {

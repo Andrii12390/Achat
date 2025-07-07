@@ -2,7 +2,7 @@ import { MessageCircle } from 'lucide-react';
 
 function ChatPage() {
   return (
-    <section className="w-full bg-secondary/30 flex flex-col items-center justify-center gap-3">
+    <section className="h-full w-full bg-secondary/30 flex flex-col items-center justify-center gap-3">
       <div className="p-6 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
         <MessageCircle
           size={56}

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 
-import { type Chat } from '@/types';
+import type { Chat } from '@/types';
 
 import { SearchInput } from '@/components';
 import { ChatListItem, EmptyState } from '.';
@@ -10,17 +10,20 @@ import { ChatListItem, EmptyState } from '.';
 import { useDebounce } from '@/hooks';
 
 import { usePathname } from 'next/navigation';
+import { useChats } from '../hooks';
 
 interface Props {
-  chats: Chat[];
+  initialChats: Chat[];
+  userEmail: string;
 }
 
-export const ChatList = ({ chats }: Props) => {
+export const ChatList = ({ initialChats, userEmail }: Props) => {
+  const chats = useChats({ initialChats, userEmail });
+
   const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query);
 
   const pathname = usePathname();
-
-  const debouncedQuery = useDebounce(query);
 
   const filteredChats = useMemo(() => {
     return chats.filter(chat =>
@@ -32,14 +35,14 @@ export const ChatList = ({ chats }: Props) => {
 
   return (
     <>
-      <div className="py-2 px-4">
+      <div className="w-full sticky top-0 bg-search-section -translate-y-1 z-50 py-2 px-4">
         <SearchInput
           placeholder="Search chats..."
           query={query}
           setQuery={setQuery}
         />
       </div>
-      <ul className="bg-secondary/20">
+      <ul className="bg-search-secttion">
         {filteredChats.length ? (
           filteredChats.map(chat => (
             <ChatListItem
@@ -49,7 +52,7 @@ export const ChatList = ({ chats }: Props) => {
               title={chat.title!}
               avatarColor={chat.avatarColor!}
               imageUrl={chat.imageUrl}
-              lastMessage={chat.messages[0]}
+              lastMessage={chat?.messages?.length ? chat.messages[0] : null}
             />
           ))
         ) : (
