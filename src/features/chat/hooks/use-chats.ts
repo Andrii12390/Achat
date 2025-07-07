@@ -15,7 +15,11 @@ export const useChats = ({ userEmail, initialChats }: Props) => {
     pusherClient.subscribe(userEmail);
 
     const handleCreateChat = (newChat: Chat) => {
-      setChats(prev => [...prev, newChat]);
+      const chatWithMessages = {
+        ...newChat,
+        messages: newChat.messages || [],
+      };
+      setChats(prev => [chatWithMessages, ...prev]);
     };
 
     const handleDeleteChat = (idToDelete: string) => {
@@ -26,9 +30,13 @@ export const useChats = ({ userEmail, initialChats }: Props) => {
       setChats(prev =>
         prev.map(chat => {
           if (chat.id === chatId) {
-            return { ...chat, messages: [newMessage, ...chat.messages] };
+            const currentMessages = chat.messages || [];
+            return {
+              ...chat,
+              messages: [newMessage, ...currentMessages],
+              lastMessageAt: new Date(newMessage.createdAt),
+            };
           }
-
           return chat;
         }),
       );
@@ -40,10 +48,9 @@ export const useChats = ({ userEmail, initialChats }: Props) => {
 
     return () => {
       pusherClient.unsubscribe(userEmail);
-
       pusherClient.unbind(PUSHER_EVENTS.NEW_CHAT, handleCreateChat);
       pusherClient.unbind(PUSHER_EVENTS.DELETE_CHAT, handleDeleteChat);
-      pusherClient.unbind(PUSHER_EVENTS.UPDATE_CHAT, handleUpdateChat);
+      pusherClient.bind(PUSHER_EVENTS.UPDATE_CHAT, handleUpdateChat);
     };
   }, [userEmail]);
 

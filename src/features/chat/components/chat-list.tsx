@@ -35,14 +35,14 @@ export const ChatList = ({ initialChats, userEmail }: Props) => {
 
   return (
     <>
-      <div className="py-2 px-4">
+      <div className="w-full sticky top-0 bg-search-section -translate-y-1 z-50 py-2 px-4">
         <SearchInput
           placeholder="Search chats..."
           query={query}
           setQuery={setQuery}
         />
       </div>
-      <ul className="bg-secondary/20">
+      <ul className="bg-search-secttion">
         {filteredChats.length ? (
           filteredChats.map(chat => (
             <ChatListItem
@@ -52,7 +52,7 @@ export const ChatList = ({ initialChats, userEmail }: Props) => {
               title={chat.title!}
               avatarColor={chat.avatarColor!}
               imageUrl={chat.imageUrl}
-              lastMessage={chat.messages[0]}
+              lastMessage={chat?.messages?.length ? chat.messages[0] : null}
             />
           ))
         ) : (

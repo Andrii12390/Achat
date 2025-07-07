@@ -7,16 +7,16 @@ async function UsersPage() {
   const users = (await getUsers()) ?? [];
 
   return (
-    <main className="h-screen flex">
-      <section className="shrink-0 flex flex-col border-r border-border overflow-hidden w-80 bg-secondary/20 shadow-lg">
-        <div className="flex-1">
-          <Header />
+    <main className="h-dvh flex">
+      <section className="w-full shrink-0 flex flex-col border-r border-border overflow-hidden sm:w-64 md:w-80 lg:w-84 shadow-lg">
+        <Header />
+        <div className="flex-1 overflow-y-scroll no-scrollbar">
           <UserList users={users} />
         </div>
         <Menubar />
       </section>
 
-      <section className="w-full bg-secondary/30 flex flex-col items-center justify-center gap-3">
+      <section className="hidden w-full bg-secondary/30 sm:flex flex-col items-center justify-center gap-3">
         <div className="p-6 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
           <User
             size={56}

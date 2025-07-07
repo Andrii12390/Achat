@@ -25,9 +25,9 @@ export const ChatFooter = ({ chatId }: Props) => {
   } = useMessageComposer(chatId);
 
   return (
-    <footer className="relative px-6 py-4 bg-secondary/50 border-t border-border">
+    <footer className="relative p-4 bg-secondary/50 border-t border-border">
       <button
-        className="absolute top-8 left-10 hover:text-primary text-icon cursor-pointer"
+        className="absolute top-8 left-8 hover:text-primary text-icon cursor-pointer"
         onClick={onAttachClick}
       >
         <Paperclip
@@ -53,14 +53,14 @@ export const ChatFooter = ({ chatId }: Props) => {
         placeholder="Type a message..."
       />
 
-      <div className="absolute top-8 right-22 hover:text-primary ">
+      <div className="absolute top-8 right-21 hover:text-primary ">
         <EmojiPicker onPick={addEmoji} />
       </div>
 
       <button
         disabled={!text.trim() || isSending}
         onClick={sendMessage}
-        className="absolute top-6 right-10 transition-colors bg-primary text-white rounded-lg p-2 disabled:opacity-50 hover:opacity-90 cursor-pointer"
+        className="absolute top-6 right-9 transition-colors bg-primary text-white rounded-lg p-2 disabled:opacity-50 hover:opacity-90 cursor-pointer"
       >
         <Send
           strokeWidth={1.7}

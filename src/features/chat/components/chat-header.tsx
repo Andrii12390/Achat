@@ -1,10 +1,10 @@
 'use client';
 
-import { DEFAULT_GROUP_IMAGE } from '@/constants';
+import { DEFAULT_GROUP_IMAGE, PRIVATE_ROUTES } from '@/constants';
 
 import Image from 'next/image';
 
-import { MoreVertical, Trash2, LogOut } from 'lucide-react';
+import { MoreVertical, Trash2, LogOut, ChevronLeft } from 'lucide-react';
 import { UserAvatar } from '@/components';
 import {
   DropdownMenu,
@@ -17,6 +17,7 @@ import {
 
 import { useChatActions } from '@/features/chat/hooks';
 import { useOnlineUsers } from '@/hooks/use-online-users';
+import Link from 'next/link';
 
 interface Props {
   userId: string | null;
@@ -42,8 +43,17 @@ export const ChatHeader = ({
   const { deleteChat, leaveGroup } = useChatActions(chatId);
 
   return (
-    <header className="w-full flex items-center justify-between py-4 px-6 bg-secondary/50 border-b border-border">
+    <header className="w-full flex items-center justify-between p-4 bg-secondary/50 border-b border-border">
       <div className="flex items-center gap-2">
+        <Link
+          href={PRIVATE_ROUTES.CHATS}
+          className="sm:hidden p-2 hover:bg-icon-hover text-icon hover:text-icon-accent rounded-md transition-colors duration-200 cursor-pointer"
+        >
+          <ChevronLeft
+            size={20}
+            strokeWidth={1.7}
+          />
+        </Link>
         {isGroup ? (
           <Image
             src={imageUrl ?? DEFAULT_GROUP_IMAGE}
@@ -73,7 +83,7 @@ export const ChatHeader = ({
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
-          <DropdownMenuLabel>Chat Actions</DropdownMenuLabel>
+          <DropdownMenuLabel className="text-secondary-foreground">Chat Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             className="flex gap-2 items-center text-destructive hover:bg-destructive"
