@@ -14,7 +14,7 @@ export const useAvatar = (imageUrl: string | null) => {
     if (res.success) {
       setAvatar(res.data ?? null);
     } else {
-      toast.error('Failed to upload avatar!');
+      toast.error(res.message);
     }
   };
 
@@ -23,7 +23,7 @@ export const useAvatar = (imageUrl: string | null) => {
     if (res.success) {
       setAvatar(null);
     } else {
-      toast.error('Failed to delete avatar!');
+      toast.error(res.message);
     }
   };
 

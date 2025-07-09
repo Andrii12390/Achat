@@ -1,3 +1,4 @@
+import { getUser } from '@/actions';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
@@ -8,10 +9,21 @@ export async function DELETE(
   { params }: { params: Promise<{ chatId: string; messageId: string }> },
 ) {
   try {
+    const user = await getUser();
+
+    if (!user) {
+      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
+    }
+
+    if (!user.isVerified) {
+      return apiError('Not verified', StatusCodes.FORBIDDEN);
+    }
+
     const { chatId, messageId } = await params;
 
     await prisma.message.delete({
       where: {
+        senderId: user.id,
         id: messageId,
       },
     });

@@ -36,13 +36,11 @@ export const UserList = ({ users }: Props) => {
   }, [users, debouncedQuery]);
 
   const handleCreateChat = async (userId: string) => {
-    try {
-      const res = await chatService.create(userId);
-      if (res.success) {
-        router.push(`${PRIVATE_ROUTES.CHATS}/${res.data}`);
-      }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : String(error));
+    const res = await chatService.create(userId);
+    if (res.success) {
+      router.push(`${PRIVATE_ROUTES.CHATS}/${res.data}`);
+    } else {
+      toast.error(res.message);
     }
   };
 

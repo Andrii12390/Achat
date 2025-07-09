@@ -48,7 +48,7 @@ export const useMessages = ({ chatId, userId, initialMessages }: Props) => {
     const res = await messageService.delete({ chatId, messageId });
 
     if (!res.success) {
-      toast.error('Failed to delete message');
+      toast.error(res.message);
     }
   };
 

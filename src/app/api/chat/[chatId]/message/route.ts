@@ -34,6 +34,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ chatId:
       return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
     }
 
+    if (!user.isVerified) {
+      return apiError('Not verified', StatusCodes.FORBIDDEN);
+    }
+
     const { chatId } = await params;
 
     const userChat = await prisma.userChat.findUnique({

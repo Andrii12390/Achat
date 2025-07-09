@@ -5,6 +5,7 @@ import {
   AccountPreferences,
   AccountManagement,
 } from '@/features/profile/components';
+import { VerificationBanner } from '@/features/profile/components/verification-banner';
 
 async function ProfilePage() {
   const user = await getUser();
@@ -14,14 +15,18 @@ async function ProfilePage() {
   return (
     <div className="py-4">
       <ProfileHeader />
+
+      {!user.isVerified && <VerificationBanner email={user.email} />}
+
       <Profile
         username={user.username}
         email={user.email}
         avatarColor={user.avatarColor}
         imageUrl={user.imageUrl}
-        isVerified={user.isVerified}
       />
+
       <AccountPreferences />
+
       <AccountManagement />
     </div>
   );

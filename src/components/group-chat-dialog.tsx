@@ -34,25 +34,22 @@ export const GroupChatDialog = ({ users }: Props) => {
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
 
   const handleCreate = async () => {
-    try {
-      setIsPending(true);
-      if (!title.trim() || selectedUsers.length < 2) return;
+    setIsPending(true);
+    if (!title.trim() || selectedUsers.length < 2) return;
 
-      const res = await chatService.createGroup(
-        selectedUsers.map(u => u.id),
-        title.trim(),
-      );
-      if (res.success) {
-        router.push(`${PRIVATE_ROUTES.CHATS}/${res.data}`);
-        setIsOpen(false);
-      } else {
-        toast.error('Failed to create group chat');
-      }
-    } catch {
-      toast.error('Failed to create group chat');
-    } finally {
-      setIsPending(false);
+    const res = await chatService.createGroup(
+      selectedUsers.map(u => u.id),
+      title.trim(),
+    );
+
+    if (res.success) {
+      router.push(`${PRIVATE_ROUTES.CHATS}/${res.data}`);
+      setIsOpen(false);
+    } else {
+      toast.error(res.message);
     }
+
+    setIsPending(false);
   };
 
   return (

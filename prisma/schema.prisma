@@ -22,9 +22,10 @@ model User {
   imageUrl    String? @map("image_url")
   isVerified  Boolean @default(false) @map("is_verified")
 
-  chats        UserChat[]
-  messages     Message[]
-  readMessages ReadMessage[]
+  verificationCodes VerificationCode[]
+  chats             UserChat[]
+  messages          Message[]
+  readMessages      ReadMessage[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt() @map("updated_at")
@@ -85,4 +86,18 @@ model ReadMessage {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt() @map("updated_at")
+}
+
+model VerificationCode {
+  id        String   @id @default(ulid())
+  code      Int
+  expiresAt DateTime @map("expires_at")
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  @@map("verification_code")
 }
