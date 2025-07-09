@@ -1,6 +1,7 @@
 export const PUBLIC_ROUTES = {
   LOGIN: '/',
   REGISTRATION: '/register',
+  VERIFICATION: '/verification',
 } as const;
 
 export const PRIVATE_ROUTES = {

@@ -10,8 +10,8 @@ export const SocialSection = () => {
       await signIn(PROVIDERS.GOOGLE, {
         callbackUrl: PRIVATE_ROUTES.CHATS,
       });
-    } catch {
-      toast.error('Authentication via Google failed');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : String(error));
     }
   };
 
@@ -20,8 +20,8 @@ export const SocialSection = () => {
       await signIn(PROVIDERS.GITHUB, {
         callbackUrl: PRIVATE_ROUTES.CHATS,
       });
-    } catch {
-      toast.error('Authentication via GitHub failed');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : String(error));
     }
   };
 

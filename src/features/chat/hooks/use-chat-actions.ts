@@ -12,7 +12,7 @@ export const useChatActions = (chatId: string) => {
     if (res.success) {
       router.push(PRIVATE_ROUTES.CHATS);
     } else {
-      toast.error('Failed to delete chat!');
+      toast.error(res.message);
     }
   };
 
@@ -22,7 +22,7 @@ export const useChatActions = (chatId: string) => {
     if (res.success) {
       router.push(PRIVATE_ROUTES.CHATS);
     } else {
-      toast.error('Failed to leave group!');
+      toast.error(res.message);
     }
   };
 

@@ -32,10 +32,9 @@ export const LoginForm = () => {
         ...values,
         redirect: false,
       });
+
       if (result?.ok) {
         router.push(PRIVATE_ROUTES.CHATS);
-      } else {
-        form.setError('root', { message: result?.error ?? 'Something went wrong' });
       }
     } catch (error) {
       form.setError('root', {
@@ -48,7 +47,7 @@ export const LoginForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 p-10 rounded-md shadow-2xl shadow-primary/25 dark:shadow-primary/50 border border-border min-w-84"
+        className="flex flex-col gap-4 p-10 rounded-md shadow-2xl shadow-primary/25 border border-border min-w-84"
       >
         <h3 className="text-2xl font-semibold text-center">Login</h3>
         <TextInputField

@@ -4,7 +4,7 @@ import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth
 import { SocialSection, TextInputField } from '@/features/auth/components';
 import { registerUser } from '@/features/auth/actions';
 import { PROVIDERS } from '@/features/auth/lib/constants';
-import { PRIVATE_ROUTES } from '@/constants';
+import { PUBLIC_ROUTES } from '@/constants';
 
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ import { signIn } from 'next-auth/react';
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { authService } from '../services/auth-service';
 
 export const RegistrationForm = () => {
   const router = useRouter();
@@ -39,7 +40,8 @@ export const RegistrationForm = () => {
           redirect: false,
         });
         if (signInRes?.ok) {
-          router.push(PRIVATE_ROUTES.CHATS);
+          await authService.sendCode();
+          router.push(PUBLIC_ROUTES.VERIFICATION);
         }
       }
     } catch (error) {

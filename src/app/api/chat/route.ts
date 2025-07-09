@@ -14,6 +14,10 @@ export async function POST(req: Request) {
       return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
     }
 
+    if (!currentUser.isVerified) {
+      return apiError('Not verified', StatusCodes.FORBIDDEN);
+    }
+
     const body = (await req.json()) as { userId: string } | { title?: string; userIds: string[] };
 
     if ('userId' in body) {

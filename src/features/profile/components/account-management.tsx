@@ -13,7 +13,7 @@ export const AccountManagement = () => {
     const res = await userService.delete();
 
     if (!res.success) {
-      toast.error('Failed to delete account');
+      toast.error(res.message);
     } else {
       signOut();
     }

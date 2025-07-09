@@ -12,7 +12,10 @@ export type ApiResponse<T> = {
   status: number;
 };
 
-export type User = Pick<PrismaUser, 'id' | 'username' | 'email' | 'imageUrl' | 'avatarColor'>;
+export type User = Pick<
+  PrismaUser,
+  'id' | 'username' | 'email' | 'imageUrl' | 'avatarColor' | 'isVerified'
+>;
 
 export type Message = Pick<PrismaMessage, 'id' | 'text' | 'imageUrl' | 'createdAt' | 'senderId'>;
 

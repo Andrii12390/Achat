@@ -46,7 +46,7 @@ class ApiClient {
           message: errorMessage,
           status: error.response?.status || StatusCodes.INTERNAL_SERVER_ERROR,
         };
-        return Promise.reject(errorResponse);
+        return Promise.resolve({ data: errorResponse });
       },
     );
   }

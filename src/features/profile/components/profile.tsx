@@ -14,10 +14,9 @@ interface Props {
   email: string;
   avatarColor: string;
   imageUrl: string | null;
-  isVerified: boolean;
 }
 
-export const Profile = ({ username, email, avatarColor, imageUrl, isVerified }: Props) => {
+export const Profile = ({ username, email, avatarColor, imageUrl }: Props) => {
   const { avatar, handleAvatarUpload, handleAvatarDelete } = useAvatar(imageUrl);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -57,7 +56,6 @@ export const Profile = ({ username, email, avatarColor, imageUrl, isVerified }: 
             <UserInfo
               username={username}
               email={email}
-              isVerified={isVerified}
             />
           </div>
         </div>

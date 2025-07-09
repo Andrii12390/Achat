@@ -13,6 +13,10 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ chatI
       return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
     }
 
+    if (!user.isVerified) {
+      return apiError('Not verified', StatusCodes.FORBIDDEN);
+    }
+
     const { chatId } = await params;
 
     const userChat = await prisma.userChat.findUnique({
@@ -53,6 +57,10 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ chatId
 
     if (!user) {
       return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
+    }
+
+    if (!user.isVerified) {
+      return apiError('Not verified', StatusCodes.FORBIDDEN);
     }
 
     const { chatId } = await params;
