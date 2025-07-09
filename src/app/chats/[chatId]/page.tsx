@@ -3,13 +3,14 @@ import { getChat } from '@/features/chat/actions';
 
 import { ChatFooter, MessageList, ChatHeader } from '@/features/chat/components';
 import { getChatDisplayData } from '@/features/chat/lib/utils';
+import { notFound } from 'next/navigation';
 
 async function ChatPage({ params }: { params: Promise<{ chatId: string }> }) {
   const { chatId } = await params;
 
   const [chat, user] = await Promise.all([getChat(chatId), getUser()]);
 
-  if (!user || !chat) return <div>Chat not found</div>;
+  if (!user || !chat) return notFound();
 
   const displayData = getChatDisplayData(chat, user);
 
