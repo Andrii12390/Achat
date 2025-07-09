@@ -6,7 +6,7 @@ import { ChatLayout, ChatList } from '@/features/chat/components';
 async function layout({ children }: { children: React.ReactNode }) {
   const [user, chats] = await Promise.all([getUser(), getChats()]);
 
-  if (!user?.email || !chats) return <div>Chats not found</div>;
+  if (!user || !chats) return <div>Chats not found</div>;
 
   const sidebarContent = (
     <>

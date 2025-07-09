@@ -34,6 +34,8 @@ export const getChat = async (chatId: string) => {
       },
     });
 
+    if (!chat) return null;
+
     if (chat?.isGroup) {
       return chat;
     }
