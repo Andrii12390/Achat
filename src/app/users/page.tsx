@@ -2,6 +2,17 @@ import { Header, Menubar } from '@/components';
 import { getUsers } from '@/features/user/actions';
 import { UserList } from '@/features/user/components';
 import { User } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Users',
+  description:
+    'Find new friends and connect with people on AChat. Browse all users and start chatting instantly.',
+  openGraph: {
+    title: 'Users',
+    description: 'Discover the community on AChat. Find friends and connect for instant messaging.',
+  },
+};
 
 async function UsersPage() {
   const users = (await getUsers()) ?? [];

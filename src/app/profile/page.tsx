@@ -6,6 +6,12 @@ import {
   AccountManagement,
 } from '@/features/profile/components';
 import { VerificationBanner } from '@/features/profile/components/verification-banner';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Profile',
+  description: 'View and edit your AChat profile information.',
+};
 
 async function ProfilePage() {
   const user = await getUser();
