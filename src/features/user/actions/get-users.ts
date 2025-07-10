@@ -14,7 +14,6 @@ export const getUsers = async () => {
     return prisma.user.findMany({
       omit: {
         password: true,
-        isVerified: true,
         createdAt: true,
         updatedAt: true,
       },

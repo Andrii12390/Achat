@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: 'View and edit your AChat profile information.',
 };
 
+export const dynamic = 'force-dynamic';
+
 async function ProfilePage() {
   const user = await getUser();
 

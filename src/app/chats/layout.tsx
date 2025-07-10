@@ -15,6 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = 'force-dynamic';
+
 async function layout({ children }: { children: React.ReactNode }) {
   const [user, chats] = await Promise.all([getUser(), getChats()]);
 
