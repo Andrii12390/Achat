@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const emailSchema = z.string().trim().email('Invalid email');
+const emailSchema = z.string().trim().min(1, 'Email is required').email('Invalid email');
 
 export const LoginFormSchema = z.object({
   email: emailSchema,
