@@ -1,13 +1,13 @@
 export const PUBLIC_ROUTES = {
   LOGIN: '/',
   REGISTRATION: '/register',
-  VERIFICATION: '/verification',
 } as const;
 
 export const PRIVATE_ROUTES = {
   CHATS: '/chats',
   USERS: '/users',
   PROFILE: '/profile',
+  VERIFICATION: '/verification',
 } as const;
 
 export const PUSHER_EVENTS = {

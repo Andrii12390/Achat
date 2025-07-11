@@ -17,9 +17,13 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(PRIVATE_ROUTES.CHATS, req.url));
   }
 
+  if (req.nextUrl.pathname === PRIVATE_ROUTES.VERIFICATION && token?.isVerified) {
+    return NextResponse.redirect(new URL(PRIVATE_ROUTES.CHATS, req.url));
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/', '/register', '/profile/:path*', '/chats/:path*', '/users/:path*'],
+  matcher: ['/', '/register', '/verification', '/profile/:path*', '/chats/:path*', '/users/:path*'],
 };
