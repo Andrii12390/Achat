@@ -10,6 +10,8 @@ const interSans = Inter({
   subsets: ['latin'],
 });
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
+
 export const metadata: Metadata = {
   title: {
     default: 'AChat',
@@ -20,11 +22,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AChat',
     description: 'AChat — chat with modern design and cool features. Chat with friends!',
-    url: 'https://a-chat.xyz',
+    url: BASE_URL,
     siteName: 'AChat',
     images: [
       {
-        url: 'https://a-chat.xyz/og-image.png',
+        url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
         alt: 'AChat Preview',
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AChat',
     description: 'AChat — chat with modern design and cool features. Chat with friends!',
-    images: ['https://a-chat.xyz/og-image.png'],
+    images: [`${BASE_URL}/og-image.png`],
   },
   robots: {
     index: true,

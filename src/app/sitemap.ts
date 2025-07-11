@@ -14,11 +14,6 @@ async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.8,
     },
-    {
-      url: `${BASE_URL}/verification`,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
   ];
 }
 
