@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import { useVerificationForm } from '../hooks';
+import { useVerificationForm } from '@/features/auth/hooks';
 
 export const VerificationForm = () => {
   const { code, setCode, error, handleSubmit, handleResend } = useVerificationForm();
@@ -12,8 +12,14 @@ export const VerificationForm = () => {
     <form
       className="flex flex-col items-center gap-4 p-10 rounded-md shadow-2xl shadow-primary/25 border border-border min-w-84"
       onSubmit={handleSubmit}
+      data-testid="verification-form"
     >
-      <h3 className="text-2xl font-bold text-center">Verify your email</h3>
+      <h3
+        className="text-2xl font-bold text-center"
+        data-testid="verification-title"
+      >
+        Verify your email
+      </h3>
       <p className="text-center text-sm">
         We have sent a verification code to <br /> your email address
       </p>
@@ -23,6 +29,7 @@ export const VerificationForm = () => {
         autoFocus
         onChange={e => setCode(e)}
         value={code}
+        data-testid="verification-otp-input"
       >
         <InputOTPGroup className="mb-2">
           <InputOTPSlot
@@ -58,6 +65,7 @@ export const VerificationForm = () => {
       <Button
         size="lg"
         className="tracking-wide text-lg w-2/3"
+        data-testid="verification-submit"
       >
         Verify
       </Button>
@@ -67,6 +75,7 @@ export const VerificationForm = () => {
           type="button"
           className="w-full text-primary font-semibold hover:text-primary/80 cursor-pointer"
           onClick={handleResend}
+          data-testid="verification-resend"
         >
           Resend code
         </button>

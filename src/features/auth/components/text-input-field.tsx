@@ -20,6 +20,7 @@ export const TextInputField = <T extends FieldValues>({ name, label, control, ty
           <FormControl className="bg-input-background">
             <Input
               {...field}
+              data-testid={`${name}-field`}
               autoComplete="off"
               type={type}
             />

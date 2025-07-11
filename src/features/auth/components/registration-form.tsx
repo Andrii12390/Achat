@@ -23,6 +23,7 @@ export const RegistrationForm = () => {
 
   const form = useForm<RegistrationValues>({
     resolver: zodResolver(RegistrationFormSchema),
+    mode: 'onChange',
     defaultValues: {
       email: '',
       username: '',
@@ -57,7 +58,12 @@ export const RegistrationForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4 p-10 rounded-md shadow-2xl shadow-primary/25 dark:shadow-primary/50 border border-border min-w-84"
       >
-        <h3 className="text-2xl font-semibold text-center">Register</h3>
+        <h3
+          className="text-2xl font-semibold text-center"
+          data-testid="form-title"
+        >
+          Registration
+        </h3>
         <TextInputField
           control={form.control}
           label="Email"
@@ -68,6 +74,7 @@ export const RegistrationForm = () => {
           control={form.control}
           label="Username"
           name="username"
+          type="text"
         />
         <TextInputField
           control={form.control}
@@ -82,7 +89,8 @@ export const RegistrationForm = () => {
           type="password"
         />
         <Link
-          href="/"
+          href={PUBLIC_ROUTES.LOGIN}
+          data-testid="login-link"
           className="text-sm"
         >
           Already have an account?
@@ -96,6 +104,7 @@ export const RegistrationForm = () => {
         <Button
           disabled={form.formState.isSubmitting}
           className="text-center text-md mt-4 w-1/2 mx-auto"
+          data-testid="registration-submit"
         >
           {form.formState.isSubmitting ? 'Submitting' : 'Register'}
         </Button>
