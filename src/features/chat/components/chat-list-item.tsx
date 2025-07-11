@@ -60,7 +60,7 @@ export const ChatListItem = ({
               </span>
             </div>
           )}
-          <div className="w-full flex flex-col">
+          <div className="w-full flex flex-col min-w-0">
             <div className="flex justify-between">
               <p className="text-sm font-medium">{title}</p>
               {lastMessage && (
@@ -69,7 +69,7 @@ export const ChatListItem = ({
                 </span>
               )}
             </div>
-            <p className="text-xs">{lastMessageText}</p>
+            <p className="text-xs truncate max-w-[60%]">{lastMessageText}</p>
           </div>
         </div>
       </Link>
