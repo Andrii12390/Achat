@@ -34,12 +34,3 @@ jobs:
 
       - name: Unit Tests
         run: yarn test
-
-      - name: Build
-        run: yarn build
-
-      - name: Upload dist
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-dist
-          path: dist/**
