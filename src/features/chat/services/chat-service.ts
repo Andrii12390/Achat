@@ -5,7 +5,4 @@ export const chatService = {
   create: (userId: string) => api.post<string, { userId: string }>(`/chat`, { userId }),
   getAll: () => api.get<Chat[]>('/chat'),
   delete: (chatId: string) => api.delete<string>(`/chat/${chatId}`),
-  createGroup: (userIds: string[], title: string) =>
-    api.post<string, { userIds: string[]; title: string }>(`/chat`, { userIds, title }),
-  leaveGroup: (chatId: string) => api.patch<null, null>(`/chat/${chatId}`),
 };

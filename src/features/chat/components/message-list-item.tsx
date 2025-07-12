@@ -1,3 +1,4 @@
+import { UserAvatar } from '@/components';
 import {
   ContextMenu,
   ContextMenuContent,
@@ -11,38 +12,61 @@ import Image from 'next/image';
 
 interface Props {
   isSender: boolean;
+  username: string;
+  senderImage: string | null;
+  senderAvatarColor: string;
   text: string | null;
   imageUrl: string | null;
   createdAt: Date;
   handleDelete: () => void;
 }
 
-export const MessageListItem = ({ isSender, text, imageUrl, createdAt, handleDelete }: Props) => {
+export const MessageListItem = ({
+  isSender,
+  username,
+  senderImage,
+  senderAvatarColor,
+  text,
+  imageUrl,
+  createdAt,
+  handleDelete,
+}: Props) => {
   return (
     <li className="mt-2">
       <ContextMenu>
         <ContextMenuTrigger>
-          <div
-            className={cn(
-              'w-fit px-4 py-2 rounded-2xl shadow-sm ',
-              isSender
-                ? 'bg-primary-message rounded-br-md ml-auto'
-                : 'bg-secondary rounded-bl-md mr-auto',
+          <div className={cn('w-fit flex gap-2 max-w-[60%]', isSender ? 'ml-auto' : 'mr-auto')}>
+            {!isSender && (
+              <div className="self-end">
+                <UserAvatar
+                  username={username}
+                  avatarColor={senderAvatarColor}
+                  imageUrl={senderImage}
+                />
+              </div>
             )}
-          >
-            {text ? (
-              <p className="text-sm">{text}</p>
-            ) : (
-              <Image
-                src={imageUrl!}
-                alt="Message with image"
-                sizes="25vw"
-                className="w-full h-auto"
-                width={250}
-                height={250}
-              />
-            )}
-            <p className="mt-1 text-xs text-secondary-foreground">{formatMessageDate(createdAt)}</p>
+            <div
+              className={cn(
+                'px-4 py-2 rounded-2xl shadow-sm',
+                isSender ? 'bg-primary-message rounded-br-md' : 'bg-secondary rounded-bl-md',
+              )}
+            >
+              {text ? (
+                <p className="text-sm break-all">{text}</p>
+              ) : (
+                <Image
+                  src={imageUrl!}
+                  alt="Message with image"
+                  sizes="25vw"
+                  className="w-full h-auto"
+                  width={250}
+                  height={250}
+                />
+              )}
+              <p className="mt-1 text-xs text-secondary-foreground">
+                {formatMessageDate(createdAt)}
+              </p>
+            </div>
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent>

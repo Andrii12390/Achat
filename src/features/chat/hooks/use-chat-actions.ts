@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { chatService } from '@/features/chat/services';
+import { chatService, groupService } from '@/features/chat/services';
 import { PRIVATE_ROUTES } from '@/constants';
 import { toast } from 'react-toastify';
 
@@ -17,7 +17,7 @@ export const useChatActions = (chatId: string) => {
   };
 
   const leaveGroup = async () => {
-    const res = await chatService.leaveGroup(chatId);
+    const res = await groupService.leave(chatId);
 
     if (res.success) {
       router.push(PRIVATE_ROUTES.CHATS);

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { X, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { PUBLIC_ROUTES } from '@/constants';
+import { PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   email: string;
@@ -40,7 +40,7 @@ export const VerificationBanner = ({ email }: Props) => {
               </p>
             </div>
 
-            <Link href={PUBLIC_ROUTES.VERIFICATION}>
+            <Link href={PRIVATE_ROUTES.VERIFICATION}>
               <Button
                 className="group"
                 variant="outline"

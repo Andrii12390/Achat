@@ -7,7 +7,7 @@ function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/users', '/chats/', '/profile/', '/api/'],
+      disallow: ['/verification', '/users', '/chats/', '/profile/', '/api/'],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
   };

@@ -1,8 +1,9 @@
 import { getUser } from '@/actions';
-import { PUSHER_EVENTS } from '@/constants';
+import { DEFAULT_GROUP_IMAGE, PUSHER_EVENTS, USER_AVATARS_BUCKET_FOLDER } from '@/constants';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
+import { s3Service } from '@/lib/s3/s3-service';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
@@ -59,23 +60,78 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ chatId
       return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
     }
 
-    if (!user.isVerified) {
-      return apiError('Not verified', StatusCodes.FORBIDDEN);
-    }
-
     const { chatId } = await params;
 
-    await prisma.userChat.delete({
+    const userChat = await prisma.userChat.findFirst({
       where: {
-        userId_chatId: {
-          userId: user.id,
-          chatId,
+        userId: user.id,
+        chatId,
+      },
+      include: {
+        chat: true,
+      },
+    });
+
+    if (!userChat) {
+      return apiError(ReasonPhrases.FORBIDDEN, StatusCodes.FORBIDDEN);
+    }
+
+    const formData = await req.formData();
+    const file = formData.get('file');
+    const title = formData.get('title');
+
+    if (typeof title !== 'string' || !title.trim()) {
+      return apiError('Title is required', StatusCodes.BAD_REQUEST);
+    }
+
+    const updateData: { title: string; imageUrl?: string | null } = {
+      title: title.trim(),
+    };
+
+    if (file instanceof File) {
+      if (userChat.chat.imageUrl && userChat.chat.imageUrl !== DEFAULT_GROUP_IMAGE) {
+        await s3Service.deleteFile(userChat.chat.imageUrl);
+      }
+      const fileUrl = await s3Service.uploadFile(
+        Buffer.from(await file.arrayBuffer()),
+        file.name,
+        USER_AVATARS_BUCKET_FOLDER,
+      );
+      updateData.imageUrl = fileUrl;
+    } else if (file === 'null') {
+      if (userChat.chat.imageUrl) {
+        await s3Service.deleteFile(userChat.chat.imageUrl);
+      }
+      updateData.imageUrl = DEFAULT_GROUP_IMAGE;
+    }
+
+    const updatedChat = await prisma.chat.update({
+      where: {
+        id: chatId,
+      },
+      data: updateData,
+      include: {
+        participants: {
+          select: {
+            user: {
+              select: {
+                email: true,
+              },
+            },
+          },
         },
       },
     });
 
-    return apiSuccess(null, ReasonPhrases.OK, StatusCodes.OK);
-  } catch {
+    await Promise.all(
+      updatedChat.participants.map(p =>
+        pusherServer.trigger(p.user.email, PUSHER_EVENTS.UPDATE_CHAT, updatedChat),
+      ),
+    );
+
+    return apiSuccess(updatedChat, ReasonPhrases.OK, StatusCodes.OK);
+  } catch (error) {
+    console.error('Error updating chat:', error);
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }

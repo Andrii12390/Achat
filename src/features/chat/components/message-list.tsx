@@ -21,6 +21,9 @@ export const MessageList = ({ chatId, userId, initialMessages }: Props) => {
           <MessageListItem
             key={message.id}
             isSender={message.senderId === userId}
+            username={message.sender.username}
+            senderImage={message.sender.imageUrl}
+            senderAvatarColor={message.sender.avatarColor}
             text={message.text}
             imageUrl={message.imageUrl}
             createdAt={message.createdAt}
