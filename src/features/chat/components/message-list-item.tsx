@@ -1,3 +1,6 @@
+import { Trash2 } from 'lucide-react';
+import Image from 'next/image';
+
 import { UserAvatar } from '@/components';
 import {
   ContextMenu,
@@ -5,10 +8,8 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn, formatMessageDate } from '@/lib/utils';
-import { Trash2 } from 'lucide-react';
-
-import Image from 'next/image';
 
 interface Props {
   isSender: boolean;
@@ -35,7 +36,7 @@ export const MessageListItem = ({
     <li className="mt-2">
       <ContextMenu>
         <ContextMenuTrigger>
-          <div className={cn('w-fit flex gap-2 max-w-[60%]', isSender ? 'ml-auto' : 'mr-auto')}>
+          <div className={cn('flex w-fit max-w-[60%] gap-2', isSender ? 'ml-auto' : 'mr-auto')}>
             {!isSender && (
               <div className="self-end">
                 <UserAvatar
@@ -47,7 +48,7 @@ export const MessageListItem = ({
             )}
             <div
               className={cn(
-                'px-4 py-2 rounded-2xl shadow-sm',
+                'rounded-2xl px-4 py-2 shadow-sm',
                 isSender ? 'bg-primary-message rounded-br-md' : 'bg-secondary rounded-bl-md',
               )}
             >
@@ -58,12 +59,12 @@ export const MessageListItem = ({
                   src={imageUrl!}
                   alt="Message with image"
                   sizes="25vw"
-                  className="w-full h-auto"
+                  className="h-auto w-full"
                   width={250}
                   height={250}
                 />
               )}
-              <p className="mt-1 text-xs text-secondary-foreground">
+              <p className="text-secondary-foreground mt-1 text-xs">
                 {formatMessageDate(createdAt)}
               </p>
             </div>
@@ -76,8 +77,8 @@ export const MessageListItem = ({
           >
             <Trash2
               className="text-destructive"
-              size={24}
-              strokeWidth={1.7}
+              size={ICON_SIZES.LG}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             <span>Delete Message</span>
           </ContextMenuItem>

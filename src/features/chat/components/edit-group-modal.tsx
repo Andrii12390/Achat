@@ -1,5 +1,9 @@
 'use client';
 
+import { Camera, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+
+import { UserAvatar } from '@/components';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,11 +16,9 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { UserAvatar } from '@/components';
-import { Camera, Trash2 } from 'lucide-react';
-import { useState } from 'react';
-import { DEFAULT_GROUP_IMAGE } from '@/constants';
+import { DEFAULT_GROUP_IMAGE, ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn } from '@/lib/utils';
+
 import { groupService } from '../services';
 
 interface Props {
@@ -57,15 +59,11 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
     const formData = new FormData();
     formData.append('title', groupName.trim());
 
-    // Case 1: Якщо було обрано новий файл.
     if (groupImageFile) {
       formData.append('file', groupImageFile);
+    } else if (!imagePreview && group.imageUrl) {
+      formData.append('file', 'null');
     }
-    // Case 2: Якщо існуюче зображення було видалено (але не було обрано нового).
-    else if (!imagePreview && group.imageUrl) {
-      formData.append('file', 'null'); // Надсилаємо сигнал на видалення.
-    }
-    // Case 3: Якщо зображення не змінювалось, поле 'file' не додається.
 
     groupService.update(group.id, formData);
   };
@@ -75,7 +73,7 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
       open={isOpen}
       onOpenChange={onClose}
     >
-      <DialogContent className="sm:max-w-[425px] bg-card">
+      <DialogContent className="bg-card sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edit Group Info</DialogTitle>
           <DialogDescription>Update your group&apos;s name and photo.</DialogDescription>
@@ -83,7 +81,7 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
 
         <div className="grid gap-8 py-4">
           <div className="flex flex-col items-center gap-3">
-            <div className="relative shrink-0 group cursor-pointer">
+            <div className="group relative shrink-0 cursor-pointer">
               <label htmlFor="group-photo-upload">
                 <UserAvatar
                   username={groupName}
@@ -93,15 +91,16 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
                 />
                 <div
                   className={cn(
-                    'absolute inset-0 size-24 flex items-center justify-center rounded-full bg-black/40 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50',
+                    'focus:ring-primary/50 absolute inset-0 flex size-24 cursor-pointer items-center justify-center rounded-full bg-black/40 transition-all duration-200 focus:ring-2 focus:outline-none',
                     isHovering ? 'opacity-100' : 'opacity-0 hover:opacity-100',
                   )}
                   onMouseEnter={() => setIsHovering(true)}
                   onMouseLeave={() => setIsHovering(false)}
                 >
                   <Camera
+                    size={ICON_SIZES.LG}
+                    strokeWidth={ICON_STROKE_WIDTH}
                     className="text-white"
-                    size={24}
                   />
                 </div>
               </label>
@@ -120,7 +119,10 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
                 className="text-destructive hover:text-destructive flex items-center gap-2"
                 onClick={handleDeleteImage}
               >
-                <Trash2 size={16} />
+                <Trash2
+                  size={ICON_SIZES.LG}
+                  strokeWidth={ICON_STROKE_WIDTH}
+                />
                 Remove Photo
               </Button>
             )}

@@ -1,8 +1,10 @@
-import { Header, Menubar } from '@/components';
-import { getUsers } from '@/features/user/actions';
-import { UserList } from '@/features/user/components';
 import { User } from 'lucide-react';
 import { Metadata } from 'next';
+
+import { Header, Menubar } from '@/components';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
+import { getUsers } from '@/features/user/actions';
+import { UserList } from '@/features/user/components';
 
 export const metadata: Metadata = {
   title: 'Users',
@@ -18,23 +20,24 @@ async function UsersPage() {
   const users = (await getUsers()) ?? [];
 
   return (
-    <main className="h-dvh flex">
-      <section className="w-full shrink-0 flex flex-col border-r border-border overflow-hidden sm:w-64 md:w-80 lg:w-84 shadow-lg">
+    <main className="flex h-dvh">
+      <section className="border-border flex w-full shrink-0 flex-col overflow-hidden border-r shadow-lg sm:w-64 md:w-80 lg:w-84">
         <Header />
-        <div className="flex-1 overflow-y-scroll no-scrollbar">
+        <div className="no-scrollbar flex-1 overflow-y-scroll">
           <UserList users={users} />
         </div>
         <Menubar />
       </section>
 
-      <section className="hidden w-full bg-secondary/30 sm:flex flex-col items-center justify-center gap-3">
-        <div className="p-6 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
+      <section className="bg-secondary/30 hidden w-full flex-col items-center justify-center gap-3 sm:flex">
+        <div className="rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 p-6">
           <User
-            size={56}
+            size={ICON_SIZES['2XL']}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="bg-gradient-to-r text-indigo-400 opacity-60"
           />
         </div>
-        <h3 className="text-2xl bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent font-bold">
+        <h3 className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-2xl font-bold text-transparent">
           Find new friends
         </h3>
         <p className="text-muted-foreground text-lg">Click on someone to start messaging</p>

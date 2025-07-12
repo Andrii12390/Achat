@@ -1,4 +1,5 @@
 import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+
 import { s3Client } from '.';
 
 const bucketName = process.env.AWS_S3_BUCKET_NAME;
@@ -28,10 +29,6 @@ export const s3Service = {
     };
 
     await s3Client.send(new DeleteObjectCommand(params));
-  },
-
-  async getFileUrl(fileKey: string): Promise<string> {
-    return `https://${bucketName}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${fileKey}`;
   },
 
   getFileKeyFromUrl(url: string): string {

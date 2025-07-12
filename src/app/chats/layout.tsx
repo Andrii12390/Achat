@@ -1,8 +1,9 @@
+import { Metadata } from 'next';
+
 import { getUser } from '@/actions';
 import { Header, Menubar } from '@/components';
 import { getChats } from '@/features/chat/actions';
 import { ChatLayout, ChatList } from '@/features/chat/components';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Chats',
@@ -25,7 +26,7 @@ async function layout({ children }: { children: React.ReactNode }) {
   const sidebarContent = (
     <>
       <Header />
-      <div className="bg-secondary/30 flex-1 overflow-y-scroll no-scrollbar">
+      <div className="bg-secondary/30 no-scrollbar flex-1 overflow-y-scroll">
         <ChatList
           initialChats={chats}
           userEmail={user.email}

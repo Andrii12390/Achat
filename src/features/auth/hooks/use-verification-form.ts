@@ -1,7 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { authService } from '@/features/auth/services';
+
 import { PRIVATE_ROUTES } from '@/constants';
+import { authService } from '@/features/auth/services';
 
 export const useVerificationForm = () => {
   const router = useRouter();

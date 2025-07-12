@@ -1,12 +1,10 @@
-import { messageService } from '@/features/chat/services';
-import { PUSHER_EVENTS } from '@/constants';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { type ExtendedMessage } from '@/types';
-
+import { PUSHER_EVENTS } from '@/constants';
+import { messageService } from '@/features/chat/services';
 import { pusherClient } from '@/lib/pusher';
-
-import { useEffect, useState } from 'react';
+import { type ExtendedMessage } from '@/types';
 
 interface Props {
   chatId: string;

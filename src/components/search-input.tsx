@@ -1,4 +1,7 @@
 import { Search } from 'lucide-react';
+
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
+
 import { Input } from './ui/input';
 
 interface Props {
@@ -11,15 +14,15 @@ export const SearchInput = ({ placeholder, query, setQuery }: Props) => {
   return (
     <div className="relative">
       <Search
-        className="absolute top-3 left-3 text-icon"
-        size={18}
-        strokeWidth={1.7}
+        className="text-icon absolute top-3 left-3"
+        size={ICON_SIZES.MD}
+        strokeWidth={ICON_STROKE_WIDTH}
       />
       <Input
         value={query}
         onChange={e => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="pl-10 py-5 border-none bg-secondary/70"
+        className="bg-secondary/70 border-none py-5 pl-10"
       />
     </div>
   );

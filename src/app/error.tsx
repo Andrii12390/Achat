@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { PRIVATE_ROUTES } from '@/constants';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   error: Error & { digest?: string };
@@ -12,30 +13,31 @@ interface Props {
 
 function GlobalErrorPage({ error, reset }: Props) {
   return (
-    <div className="h-dvh flex items-center justify-center bg-secondary/30 p-4">
-      <section className="text-center space-y-6 max-w-md">
-        <div className="mx-auto w-20 h-20 mb-8 text-destructive">
+    <div className="bg-secondary/30 flex h-dvh items-center justify-center p-4">
+      <section className="max-w-md space-y-6 text-center">
+        <div className="text-destructive mx-auto mb-8 h-20 w-20">
           <AlertTriangle
-            size={80}
+            size={ICON_SIZES['4XL']}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="animate-pulse"
           />
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Something went wrong</h1>
+          <h1 className="text-foreground text-2xl font-bold sm:text-3xl">Something went wrong</h1>
           <p className="text-muted-foreground text-sm sm:text-base">
             An unexpected error occurred. Please try again or return to the Home page
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 pt-4 items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row">
           <Button
             onClick={reset}
             className="flex items-center gap-2"
           >
             <RefreshCw
-              size={16}
-              strokeWidth={1.7}
+              size={ICON_SIZES.SM}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             Try Again
           </Button>
@@ -46,15 +48,15 @@ function GlobalErrorPage({ error, reset }: Props) {
               className="flex items-center gap-2"
             >
               <Home
-                size={16}
-                strokeWidth={1.7}
+                size={ICON_SIZES.SM}
+                strokeWidth={ICON_STROKE_WIDTH}
               />
               Go Home
             </Link>
           </Button>
         </div>
 
-        <p className="text-xs text-muted-foreground pt-4">Error ID: {error.digest || 'Unknown'}</p>
+        <p className="text-muted-foreground pt-4 text-xs">Error ID: {error.digest || 'Unknown'}</p>
       </section>
     </div>
   );

@@ -1,5 +1,6 @@
-import { RegistrationForm } from '@/features/auth/components';
 import { Metadata } from 'next';
+
+import { RegistrationForm } from '@/features/auth/components';
 
 export const metadata: Metadata = {
   title: 'Sign up',

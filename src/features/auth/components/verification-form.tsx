@@ -1,21 +1,25 @@
 'use client';
 
+import { REGEXP_ONLY_DIGITS } from 'input-otp';
+
 import { Button } from '@/components/ui/button';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
-import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { useVerificationForm } from '@/features/auth/hooks';
+
+const OTP_LENGTH = 6;
+const otpSlotClass = 'p-5 text-xl';
 
 export const VerificationForm = () => {
   const { code, setCode, error, handleSubmit, handleResend } = useVerificationForm();
 
   return (
     <form
-      className="flex flex-col items-center gap-4 p-10 rounded-md shadow-2xl shadow-primary/25 border border-border min-w-84"
+      className="shadow-primary/25 border-border flex min-w-84 flex-col items-center gap-4 rounded-md border p-10 shadow-2xl"
       onSubmit={handleSubmit}
       data-testid="verification-form"
     >
       <h3
-        className="text-2xl font-bold text-center"
+        className="text-center text-2xl font-bold"
         data-testid="verification-title"
       >
         Verify your email
@@ -32,39 +36,22 @@ export const VerificationForm = () => {
         data-testid="verification-otp-input"
       >
         <InputOTPGroup className="mb-2">
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={0}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={1}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={2}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={3}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={4}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={5}
-          />
+          {Array.from({ length: OTP_LENGTH }).map((_, idx) => (
+            <InputOTPSlot
+              className={otpSlotClass}
+              index={idx}
+              key={idx}
+            />
+          ))}
         </InputOTPGroup>
       </InputOTP>
 
       {error && (
-        <p className="w-full py-2 px-3 rounded-md text-destructive bg-destructive/10">{error}</p>
+        <p className="text-destructive bg-destructive/10 w-full rounded-md px-3 py-2">{error}</p>
       )}
       <Button
         size="lg"
-        className="tracking-wide text-lg w-2/3"
+        className="w-2/3 text-lg tracking-wide"
         data-testid="verification-submit"
       >
         Verify
@@ -73,7 +60,7 @@ export const VerificationForm = () => {
         <p>Didn&apos;t receive the code?</p>
         <button
           type="button"
-          className="w-full text-primary font-semibold hover:text-primary/80 cursor-pointer"
+          className="text-primary hover:text-primary/80 w-full cursor-pointer font-semibold"
           onClick={handleResend}
           data-testid="verification-resend"
         >

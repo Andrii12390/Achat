@@ -1,10 +1,9 @@
-import { PRIVATE_ROUTES } from '@/constants';
-import { cn, formatMessageDate } from '@/lib/utils';
-
-import { type Message } from '@/types';
-
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { ICON_SIZES, PRIVATE_ROUTES } from '@/constants';
+import { cn, formatMessageDate } from '@/lib/utils';
+import { type Message } from '@/types';
 
 interface Props {
   id: string;
@@ -43,33 +42,33 @@ export const ChatListItem = ({
           {imageUrl ? (
             <Image
               src={imageUrl}
-              width={48}
-              height={48}
+              width={ICON_SIZES['2XL']}
+              height={ICON_SIZES['2XL']}
               alt="User's profile image"
               className="rounded-full shadow-lg hover:scale-110"
             />
           ) : (
             <div
               className={cn(
-                'size-12 rounded-full flex justify-center items-center shrink-0',
+                'flex size-12 shrink-0 items-center justify-center rounded-full',
                 avatarColor,
               )}
             >
-              <span className="text-lg font-semibold text-primary-foreground">
+              <span className="text-primary-foreground text-lg font-semibold">
                 {title[0].toUpperCase()}
               </span>
             </div>
           )}
-          <div className="w-full flex flex-col min-w-0">
+          <div className="flex w-full min-w-0 flex-col">
             <div className="flex justify-between">
               <p className="text-sm font-medium">{title}</p>
               {lastMessage && (
-                <span className="text-sm text-muted-foreground text-end">
+                <span className="text-muted-foreground text-end text-sm">
                   {formatMessageDate(lastMessage.createdAt)}
                 </span>
               )}
             </div>
-            <p className="text-xs truncate max-w-[60%]">{lastMessageText}</p>
+            <p className="max-w-[60%] truncate text-xs">{lastMessageText}</p>
           </div>
         </div>
       </Link>

@@ -1,7 +1,7 @@
 'use client';
 
-import { useLayoutEffect, useState } from 'react';
 import { useTheme as useNextTheme } from 'next-themes';
+import { useLayoutEffect, useState } from 'react';
 
 import { type Theme } from '@/types';
 

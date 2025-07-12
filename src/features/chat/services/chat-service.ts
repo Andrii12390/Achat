@@ -1,5 +1,6 @@
-import { api } from '@/lib/api';
 import { Chat } from '@prisma/client';
+
+import { api } from '@/lib/api';
 
 export const chatService = {
   create: (userId: string) => api.post<string, { userId: string }>(`/chat`, { userId }),

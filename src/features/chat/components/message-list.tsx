@@ -1,9 +1,8 @@
 'use client';
 
-import { type ExtendedMessage } from '@/types';
-
 import { MessageListItem } from '@/features/chat/components';
 import { useMessages } from '@/features/chat/hooks';
+import { type ExtendedMessage } from '@/types';
 
 interface Props {
   chatId: string;
@@ -15,7 +14,7 @@ export const MessageList = ({ chatId, userId, initialMessages }: Props) => {
   const { messages, handleDelete } = useMessages({ chatId, userId, initialMessages });
 
   return (
-    <div className="h-full overflow-y-auto no-scrollbar px-6 py-4 bg-secondary/30">
+    <div className="no-scrollbar bg-secondary/30 h-full overflow-y-auto px-6 py-4">
       <ul>
         {messages.map(message => (
           <MessageListItem

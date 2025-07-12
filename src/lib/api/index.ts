@@ -1,7 +1,16 @@
-import { ApiResponse } from '@/types';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { StatusCodes } from 'http-status-codes';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { type NextRequest } from 'next/server';
 
+import { getUser } from '@/actions';
+import { ApiResponse } from '@/types';
+import { type User } from '@/types';
+
+type AuthenticatedApiHandler<T> = (
+  req: NextRequest,
+  context: { params: T },
+  user: User,
+) => Promise<Response> | Response;
 export function createApiResponse<T>(
   success: boolean,
   data?: T,
@@ -78,3 +87,19 @@ class ApiClient {
 }
 
 export const api = new ApiClient();
+
+export const withAuth = <T>(handler: AuthenticatedApiHandler<T>) => {
+  return async (req: NextRequest, context: { params: T }) => {
+    try {
+      const user = await getUser();
+
+      if (!user) {
+        return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
+      }
+
+      return handler(req, context, user);
+    } catch {
+      return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  };
+};

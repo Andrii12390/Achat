@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
+import type { Chat, Message } from '@/types';
+
 import { PUSHER_EVENTS } from '@/constants';
 import { pusherClient } from '@/lib/pusher';
-import type { Chat, Message } from '@/types';
-import { useEffect, useState } from 'react';
 
 interface Props {
   userEmail: string;

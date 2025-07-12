@@ -1,10 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { X, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
 import Link from 'next/link';
-import { PRIVATE_ROUTES } from '@/constants';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   email: string;
@@ -16,26 +17,26 @@ export const VerificationBanner = ({ email }: Props) => {
   if (isDismissed) return null;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-      <section className="relative bg-card border border-border rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
+      <section className="bg-card border-border relative rounded-xl border p-4 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-6">
         <button
           onClick={() => setIsDismissed(true)}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 rounded-full hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+          className="hover:bg-secondary text-muted-foreground hover:text-foreground absolute top-3 right-3 rounded-full p-1.5 transition-colors sm:top-4 sm:right-4"
         >
           <X
-            size={16}
-            strokeWidth={1.7}
+            size={ICON_SIZES.SM}
+            strokeWidth={ICON_STROKE_WIDTH}
           />
         </button>
 
         <div className="flex items-start gap-4 pr-8 sm:pr-10">
           <div className="flex-1 space-y-3">
             <div>
-              <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base">
+              <h3 className="text-foreground mb-1 text-sm font-semibold sm:text-base">
                 Email Verification
               </h3>
-              <p className="text-sm text-muted-foreground">
-                Your account <span className="font-medium text-foreground">{email}</span> needs to
+              <p className="text-muted-foreground text-sm">
+                Your account <span className="text-foreground font-medium">{email}</span> needs to
                 be verified to access all features.
               </p>
             </div>
@@ -47,9 +48,9 @@ export const VerificationBanner = ({ email }: Props) => {
               >
                 Verify email
                 <ArrowRight
-                  size={14}
-                  strokeWidth={1.7}
-                  className="group-hover:translate-x-0.5 transition-transform"
+                  size={ICON_SIZES.SM}
+                  strokeWidth={ICON_STROKE_WIDTH}
+                  className="transition-transform group-hover:translate-x-0.5"
                 />
               </Button>
             </Link>

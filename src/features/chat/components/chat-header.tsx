@@ -1,10 +1,10 @@
 'use client';
 
-import { DEFAULT_GROUP_IMAGE, PRIVATE_ROUTES } from '@/constants';
-
-import Image from 'next/image';
-
 import { MoreVertical, Trash2, LogOut, ChevronLeft, Edit } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+
 import { UserAvatar } from '@/components';
 import {
   DropdownMenu,
@@ -14,11 +14,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
+import { DEFAULT_GROUP_IMAGE, ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 import { useChatActions } from '@/features/chat/hooks';
 import { useOnlineUsers } from '@/hooks/use-online-users';
-import Link from 'next/link';
-import { useState } from 'react';
+
 import { EditGroupModal } from './edit-group-modal';
 
 interface Props {
@@ -47,22 +46,22 @@ export const ChatHeader = ({
   const isOnline = !!onlineUsers.find(u => u.id === userId);
 
   return (
-    <header className="w-full flex items-center justify-between p-4 bg-secondary/50 border-b border-border">
+    <header className="bg-secondary/50 border-border flex w-full items-center justify-between border-b p-4">
       <div className="flex items-center gap-2">
         <Link
           href={PRIVATE_ROUTES.CHATS}
-          className="sm:hidden p-2 hover:bg-icon-hover text-icon hover:text-icon-accent rounded-md transition-colors duration-200 cursor-pointer"
+          className="hover:bg-icon-hover text-icon hover:text-icon-accent cursor-pointer rounded-md p-2 transition-colors duration-200 sm:hidden"
         >
           <ChevronLeft
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
           />
         </Link>
         {isGroup ? (
           <Image
             src={imageUrl ?? DEFAULT_GROUP_IMAGE}
-            width={48}
-            height={48}
+            width={ICON_SIZES['2XL']}
+            height={ICON_SIZES['2XL']}
             alt="Group image"
           />
         ) : (
@@ -80,47 +79,47 @@ export const ChatHeader = ({
       </div>
 
       <DropdownMenu>
-        <DropdownMenuTrigger className="p-2 hover:bg-icon-hover text-icon hover:text-icon-accent rounded-md cursor-pointer">
+        <DropdownMenuTrigger className="hover:bg-icon-hover text-icon hover:text-icon-accent cursor-pointer rounded-md p-2">
           <MoreVertical
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
           <DropdownMenuLabel className="text-secondary-foreground">Chat Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            className="flex gap-2 items-center text-destructive hover:bg-destructive"
+            className="text-destructive hover:bg-destructive flex items-center gap-2"
             onClick={deleteChat}
           >
             <Trash2
               className="text-destructive"
-              size={24}
-              strokeWidth={1.7}
+              size={ICON_SIZES.LG}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             <span>Delete chat</span>
           </DropdownMenuItem>
           {isGroup && (
             <>
               <DropdownMenuItem
-                className="flex gap-2 items-center text-destructive hover:bg-destructive"
+                className="text-destructive hover:bg-destructive flex items-center gap-2"
                 onClick={leaveGroup}
               >
                 <LogOut
                   className="text-destructive"
-                  size={24}
-                  strokeWidth={1.7}
+                  size={ICON_SIZES.LG}
+                  strokeWidth={ICON_STROKE_WIDTH}
                 />
                 <span>Leave group</span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="flex gap-2 items-center"
+                className="flex items-center gap-2"
                 onClick={() => setIsOpenGroupModal(true)}
               >
                 <Edit
-                  size={24}
                   className="text-foreground"
-                  strokeWidth={1.7}
+                  size={ICON_SIZES.LG}
+                  strokeWidth={ICON_STROKE_WIDTH}
                 />
                 <span>Edit Group</span>
               </DropdownMenuItem>

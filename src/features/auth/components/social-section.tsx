@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
-import { PROVIDERS } from '@/features/auth/lib/constants';
+
+import { Button } from '@/components/ui/button';
 import { PRIVATE_ROUTES } from '@/constants';
+import { PROVIDERS } from '@/features/auth/lib/constants';
 
 export const SocialSection = () => {
   const signInGoogle = async () => {
@@ -27,9 +28,9 @@ export const SocialSection = () => {
 
   return (
     <>
-      <div className="flex items-center my-2">
+      <div className="my-2 flex items-center">
         <hr className="flex-grow" />
-        <span className="mx-2 text-gray-500 text-sm">or</span>
+        <span className="mx-2 text-sm text-gray-500">or</span>
         <hr className="flex-grow" />
       </div>
       <section

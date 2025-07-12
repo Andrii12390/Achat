@@ -1,9 +1,9 @@
 'use server';
 
-import { prisma } from '@/lib/prisma';
-import { getRandomAvatarColor } from '@/features/auth/lib/utils';
-
 import bcrypt from 'bcrypt';
+
+import { getRandomAvatarColor } from '@/features/auth/lib/utils';
+import { prisma } from '@/lib/prisma';
 
 interface UserPayload {
   email: string;

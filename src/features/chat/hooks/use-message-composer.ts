@@ -1,7 +1,8 @@
-import { useRef, useState, useCallback } from 'react';
-import { messageService } from '@/features/chat/services';
 import { type EmojiClickData } from 'emoji-picker-react';
+import { useRef, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
+
+import { messageService } from '@/features/chat/services';
 
 export const useMessageComposer = (chatId: string) => {
   const [text, setText] = useState('');
@@ -24,7 +25,7 @@ export const useMessageComposer = (chatId: string) => {
     const res = await messageService.sendImage({ chatId, formData });
 
     if (!res.success) {
-      toast.error('Failed to send message!');
+      toast.error(res.message);
     }
 
     setIsSending(false);
@@ -37,7 +38,7 @@ export const useMessageComposer = (chatId: string) => {
     const res = await messageService.sendText({ chatId, text: text.trim() });
 
     if (!res.success) {
-      toast.error('Failed to send message!');
+      toast.error(res.message);
     }
 
     setText('');
