@@ -1,4 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { themes } from '@/features/profile/data/themes';
 import { cn } from '@/lib/utils';
 
@@ -33,8 +34,8 @@ export const ThemeCard = ({ isActive, theme, onClick }: Props) => {
       <div className="flex items-center gap-2 pl-1">
         <Icon
           className={iconClass}
-          size={20}
-          strokeWidth={1.7}
+          size={ICON_SIZES.MD}
+          strokeWidth={ICON_STROKE_WIDTH}
         />
         <span className={cn('text-sm font-semibold', labelClass)}>{label}</span>
       </div>

@@ -2,7 +2,7 @@ import { Spinner } from '@/components/ui/spinner';
 
 function Loading() {
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div className="bg-secondary/30 flex h-full w-full items-center justify-center">
       <Spinner />
     </div>
   );

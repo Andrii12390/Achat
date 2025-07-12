@@ -13,7 +13,7 @@ interface Props {
 
 function ChatErrorPage({ error, reset }: Props) {
   return (
-    <div className="bg-background flex h-dvh items-center justify-center p-4">
+    <div className="bg-secondary/30 flex h-dvh items-center justify-center p-4">
       <section className="max-w-md space-y-6 text-center">
         <div className="text-destructive mx-auto mb-8 h-20 w-20">
           <MessageCircleX

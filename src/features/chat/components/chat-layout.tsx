@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
+import { PRIVATE_ROUTES } from '@/constants';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -12,7 +13,8 @@ interface Props {
 export const ChatLayout = ({ sidebar, children }: Props) => {
   const pathname = usePathname();
 
-  const isSpecificChat = pathname.startsWith('/chats/') && pathname !== '/chats';
+  const isSpecificChat =
+    pathname.startsWith(`${PRIVATE_ROUTES.CHATS}/`) && pathname !== PRIVATE_ROUTES.CHATS;
 
   return (
     <main className="flex h-dvh">

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PRIVATE_ROUTES } from '@/constants';
+import { ICON_SIZES, PRIVATE_ROUTES } from '@/constants';
 import { cn, formatMessageDate } from '@/lib/utils';
 import { type Message } from '@/types';
 
@@ -42,8 +42,8 @@ export const ChatListItem = ({
           {imageUrl ? (
             <Image
               src={imageUrl}
-              width={48}
-              height={48}
+              width={ICON_SIZES['2XL']}
+              height={ICON_SIZES['2XL']}
               alt="User's profile image"
               className="rounded-full shadow-lg hover:scale-110"
             />

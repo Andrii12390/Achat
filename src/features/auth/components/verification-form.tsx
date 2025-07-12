@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { useVerificationForm } from '@/features/auth/hooks';
 
+const OTP_LENGTH = 6;
+const otpSlotClass = 'p-5 text-xl';
+
 export const VerificationForm = () => {
   const { code, setCode, error, handleSubmit, handleResend } = useVerificationForm();
 
@@ -33,30 +36,13 @@ export const VerificationForm = () => {
         data-testid="verification-otp-input"
       >
         <InputOTPGroup className="mb-2">
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={0}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={1}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={2}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={3}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={4}
-          />
-          <InputOTPSlot
-            className="p-5 text-xl"
-            index={5}
-          />
+          {Array.from({ length: OTP_LENGTH }).map((_, idx) => (
+            <InputOTPSlot
+              className={otpSlotClass}
+              index={idx}
+              key={idx}
+            />
+          ))}
         </InputOTPGroup>
       </InputOTP>
 

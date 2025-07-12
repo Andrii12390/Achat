@@ -13,8 +13,7 @@ import { registerUser } from '@/features/auth/actions';
 import { SocialSection, TextInputField } from '@/features/auth/components';
 import { PROVIDERS } from '@/features/auth/lib/constants';
 import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth/lib/schemas';
-
-import { authService } from '../services/auth-service';
+import { authService } from '@/features/auth/services';
 
 export const RegistrationForm = () => {
   const router = useRouter();

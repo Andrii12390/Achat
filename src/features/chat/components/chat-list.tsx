@@ -6,10 +6,10 @@ import { useMemo, useState } from 'react';
 import type { Chat } from '@/types';
 
 import { SearchInput } from '@/components';
+import { useChats } from '@/features/chat/hooks';
 import { useDebounce } from '@/hooks';
 
 import { ChatListItem, EmptyState } from '.';
-import { useChats } from '../hooks';
 
 interface Props {
   initialChats: Chat[];

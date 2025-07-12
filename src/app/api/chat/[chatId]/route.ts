@@ -131,8 +131,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ chatId
     );
 
     return apiSuccess(updatedChat, ReasonPhrases.OK, StatusCodes.OK);
-  } catch (error) {
-    console.error('Error updating chat:', error);
+  } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
 }

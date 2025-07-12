@@ -60,8 +60,8 @@ export const ChatHeader = ({
         {isGroup ? (
           <Image
             src={imageUrl ?? DEFAULT_GROUP_IMAGE}
-            width={48}
-            height={48}
+            width={ICON_SIZES['2XL']}
+            height={ICON_SIZES['2XL']}
             alt="Group image"
           />
         ) : (

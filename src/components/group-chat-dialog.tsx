@@ -1,9 +1,6 @@
 'use client';
 
 import { Plus } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
 
 import {
   Dialog,
@@ -12,9 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
-import { groupService } from '@/features/chat/services';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { UserMultiSelect } from '@/features/user/components';
+import { useGroupChatForm } from '@/hooks';
 import { User } from '@/types';
 
 import { Button } from './ui/button';
@@ -26,33 +23,17 @@ interface Props {
 }
 
 export const GroupChatDialog = ({ users }: Props) => {
-  const router = useRouter();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [title, setTitle] = useState('');
-  const [isPending, setIsPending] = useState(false);
-
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
-
-  const handleCreate = async () => {
-    setIsPending(true);
-    if (!title.trim() || selectedUsers.length < 2) return;
-
-    const res = await groupService.create(
-      selectedUsers.map(u => u.id),
-      title.trim(),
-    );
-
-    if (res.success) {
-      router.push(`${PRIVATE_ROUTES.CHATS}/${res.data}`);
-      setIsOpen(false);
-    } else {
-      toast.error(res.message);
-    }
-
-    setIsPending(false);
-  };
+  const {
+    isOpen,
+    setIsOpen,
+    isPending,
+    title,
+    setTitle,
+    selectedUsers,
+    setSelectedUsers,
+    errors,
+    handleCreate,
+  } = useGroupChatForm();
 
   return (
     <Dialog
@@ -80,9 +61,10 @@ export const GroupChatDialog = ({ users }: Props) => {
               onChange={e => setTitle(e.target.value)}
               placeholder="Enter group name..."
               disabled={isPending}
+              aria-invalid={!!errors.title}
             />
+            {errors.title && <p className="text-destructive text-xs">{errors.title}</p>}
           </div>
-
           <div className="space-y-2">
             <Label>Select Members ({selectedUsers.length} selected)</Label>
             <UserMultiSelect
@@ -90,13 +72,8 @@ export const GroupChatDialog = ({ users }: Props) => {
               selectedUsers={selectedUsers}
               onSelectionChange={setSelectedUsers}
             />
-            {selectedUsers.length < 2 && (
-              <p className="text-muted-foreground text-xs">
-                Select at least 2 members to create a group
-              </p>
-            )}
+            {errors.users && <p className="text-destructive text-xs">{errors.users}</p>}
           </div>
-
           <div className="flex justify-end gap-2">
             <Button
               variant="outline"
