@@ -4,6 +4,7 @@ import { Paperclip, Send } from 'lucide-react';
 
 import { EmojiPicker } from '@/components';
 import { Input } from '@/components/ui/input';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { useMessageComposer } from '@/features/chat/hooks';
 
 interface Props {
@@ -30,8 +31,8 @@ export const ChatFooter = ({ chatId }: Props) => {
         onClick={onAttachClick}
       >
         <Paperclip
-          strokeWidth={1.7}
-          size={20}
+          size={ICON_SIZES.MD}
+          strokeWidth={ICON_STROKE_WIDTH}
         />
       </button>
       <input
@@ -62,8 +63,8 @@ export const ChatFooter = ({ chatId }: Props) => {
         className="bg-primary absolute top-6 right-9 cursor-pointer rounded-lg p-2 text-white transition-colors hover:opacity-90 disabled:opacity-50"
       >
         <Send
-          strokeWidth={1.7}
-          size={20}
+          size={ICON_SIZES.MD}
+          strokeWidth={ICON_STROKE_WIDTH}
         />
       </button>
     </footer>

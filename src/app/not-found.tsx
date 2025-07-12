@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-import { PRIVATE_ROUTES } from '@/constants';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 
 function NotFoundPage() {
   return (
@@ -20,8 +20,8 @@ function NotFoundPage() {
         >
           <span>Go home</span>
           <ArrowRight
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="transition-transform group-hover:translate-x-0.5"
           />
         </Link>

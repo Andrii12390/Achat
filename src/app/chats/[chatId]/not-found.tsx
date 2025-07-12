@@ -1,7 +1,7 @@
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
-import { PRIVATE_ROUTES } from '@/constants';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 
 function ChatNotFoundPage() {
   return (
@@ -9,7 +9,8 @@ function ChatNotFoundPage() {
       <section className="container max-w-md space-y-6 text-center">
         <div className="relative mx-auto mb-8 h-24 w-24">
           <MessageCircle
-            size={96}
+            size={ICON_SIZES['5XL']}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="text-muted-foreground/30 animate-pulse"
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -30,8 +31,8 @@ function ChatNotFoundPage() {
         >
           <span>Back to Chats</span>
           <ArrowRight
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="transition-transform group-hover:translate-x-0.5"
           />
         </Link>

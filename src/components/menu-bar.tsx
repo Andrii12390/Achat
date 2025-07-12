@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { useMenu } from '@/hooks';
 import { cn } from '@/lib/utils';
 
@@ -23,8 +24,8 @@ export const Menubar = () => {
               )}
             >
               <Icon
-                size={24}
-                strokeWidth={1.7}
+                size={ICON_SIZES.LG}
+                strokeWidth={ICON_STROKE_WIDTH}
                 className="mx-auto"
               />
               <p className="mt-2 text-xs font-medium">{text}</p>

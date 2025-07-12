@@ -5,6 +5,7 @@ import { signOut } from 'next-auth/react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { userService } from '@/features/user/services';
 
 export const AccountManagement = () => {
@@ -31,8 +32,8 @@ export const AccountManagement = () => {
           onClick={handleDelete}
         >
           <Trash2
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
           />{' '}
           delete account
         </Button>

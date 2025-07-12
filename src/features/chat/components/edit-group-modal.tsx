@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DEFAULT_GROUP_IMAGE } from '@/constants';
+import { DEFAULT_GROUP_IMAGE, ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn } from '@/lib/utils';
 
 import { groupService } from '../services';
@@ -59,15 +59,11 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
     const formData = new FormData();
     formData.append('title', groupName.trim());
 
-    // Case 1: Якщо було обрано новий файл.
     if (groupImageFile) {
       formData.append('file', groupImageFile);
+    } else if (!imagePreview && group.imageUrl) {
+      formData.append('file', 'null');
     }
-    // Case 2: Якщо існуюче зображення було видалено (але не було обрано нового).
-    else if (!imagePreview && group.imageUrl) {
-      formData.append('file', 'null'); // Надсилаємо сигнал на видалення.
-    }
-    // Case 3: Якщо зображення не змінювалось, поле 'file' не додається.
 
     groupService.update(group.id, formData);
   };
@@ -102,8 +98,9 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
                   onMouseLeave={() => setIsHovering(false)}
                 >
                   <Camera
+                    size={ICON_SIZES.LG}
+                    strokeWidth={ICON_STROKE_WIDTH}
                     className="text-white"
-                    size={24}
                   />
                 </div>
               </label>
@@ -122,7 +119,10 @@ export const EditGroupModal = ({ isOpen, onClose, group }: Props) => {
                 className="text-destructive hover:text-destructive flex items-center gap-2"
                 onClick={handleDeleteImage}
               >
-                <Trash2 size={16} />
+                <Trash2
+                  size={ICON_SIZES.LG}
+                  strokeWidth={ICON_STROKE_WIDTH}
+                />
                 Remove Photo
               </Button>
             )}

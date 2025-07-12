@@ -8,6 +8,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn, formatMessageDate } from '@/lib/utils';
 
 interface Props {
@@ -76,8 +77,8 @@ export const MessageListItem = ({
           >
             <Trash2
               className="text-destructive"
-              size={24}
-              strokeWidth={1.7}
+              size={ICON_SIZES.LG}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             <span>Delete Message</span>
           </ContextMenuItem>

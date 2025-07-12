@@ -1,6 +1,7 @@
 import { Upload } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -26,7 +27,11 @@ export const AvatarDropzone = ({ handleSelectFile }: Props) => {
     >
       <input {...getInputProps()} />
 
-      <Upload className="text-muted-foreground mx-auto mb-4 size-12" />
+      <Upload
+        className="text-muted-foreground mx-auto mb-4"
+        size={ICON_SIZES['2XL']}
+        strokeWidth={ICON_STROKE_WIDTH}
+      />
       <h3 className="mb-2 font-medium">Drop your audio file here</h3>
       <p className="text-muted-foreground text-sm">or click to browse</p>
     </div>

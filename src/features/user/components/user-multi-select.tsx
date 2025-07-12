@@ -14,6 +14,7 @@ import {
   CommandItem,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn } from '@/lib/utils';
 import { type User } from '@/types';
 
@@ -80,14 +81,18 @@ export const UserMultiSelect = ({ users, selectedUsers, onSelectionChange }: Pro
                     role="button"
                     aria-label={`Remove ${user.username}`}
                   >
-                    <X size={12} />
+                    <X
+                      size={ICON_SIZES.SM}
+                      strokeWidth={ICON_STROKE_WIDTH}
+                    />
                   </span>
                 </Badge>
               ))
             )}
           </div>
           <ChevronsUpDown
-            size={16}
+            size={ICON_SIZES.SM}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="ml-2 shrink-0 opacity-50"
           />
         </Button>
@@ -115,9 +120,11 @@ export const UserMultiSelect = ({ users, selectedUsers, onSelectionChange }: Pro
                 </div>
                 <Check
                   className={cn(
-                    'ml-auto h-4 w-4',
+                    'ml-auto',
                     selectedUsers.some(u => u.id === user.id) ? 'opacity-100' : 'opacity-0',
                   )}
+                  size={ICON_SIZES.SM}
+                  strokeWidth={ICON_STROKE_WIDTH}
                 />
               </CommandItem>
             ))}

@@ -2,6 +2,7 @@ import { User } from 'lucide-react';
 import { Metadata } from 'next';
 
 import { Header, Menubar } from '@/components';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { getUsers } from '@/features/user/actions';
 import { UserList } from '@/features/user/components';
 
@@ -31,7 +32,8 @@ async function UsersPage() {
       <section className="bg-secondary/30 hidden w-full flex-col items-center justify-center gap-3 sm:flex">
         <div className="rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 p-6">
           <User
-            size={56}
+            size={ICON_SIZES['2XL']}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="bg-gradient-to-r text-indigo-400 opacity-60"
           />
         </div>

@@ -31,10 +31,6 @@ export const s3Service = {
     await s3Client.send(new DeleteObjectCommand(params));
   },
 
-  async getFileUrl(fileKey: string): Promise<string> {
-    return `https://${bucketName}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${fileKey}`;
-  },
-
   getFileKeyFromUrl(url: string): string {
     return url.split('/').slice(3).join('/');
   },

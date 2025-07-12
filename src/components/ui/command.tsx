@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { cn } from '@/lib/utils';
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
@@ -66,7 +67,11 @@ function CommandInput({
       data-slot="command-input-wrapper"
       className="flex h-9 items-center gap-2 border-b px-3"
     >
-      <SearchIcon className="size-4 shrink-0 opacity-50" />
+      <SearchIcon
+        className="shrink-0 opacity-50"
+        size={ICON_SIZES.SM}
+        strokeWidth={ICON_STROKE_WIDTH}
+      />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(

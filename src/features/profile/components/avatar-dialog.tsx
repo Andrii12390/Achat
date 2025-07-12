@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { AvatarDropzone } from '@/features/profile/components';
 
 interface Props {
@@ -37,7 +38,10 @@ export const AvatarDialog = ({ open, onOpenChange, hasAvatar, onUpload, onDelete
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="bg-primary flex size-10 items-center justify-center rounded-lg">
-                  <File size={20} />
+                  <File
+                    size={ICON_SIZES.MD}
+                    strokeWidth={ICON_STROKE_WIDTH}
+                  />
                 </div>
                 <p className="text-sm font-medium">Avatar already uploaded</p>
               </div>
@@ -47,7 +51,10 @@ export const AvatarDialog = ({ open, onOpenChange, hasAvatar, onUpload, onDelete
                 className="text-destructive hover:text-destructive hover:bg-destructive/10"
                 onClick={onDelete}
               >
-                <Trash2 size={16} />
+                <Trash2
+                  size={ICON_SIZES.SM}
+                  strokeWidth={ICON_STROKE_WIDTH}
+                />
               </Button>
             </div>
             <div className="border-border mt-4 border-t pt-4">

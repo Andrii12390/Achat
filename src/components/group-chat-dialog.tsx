@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { PRIVATE_ROUTES } from '@/constants';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 import { groupService } from '@/features/chat/services';
 import { UserMultiSelect } from '@/features/user/components';
 import { User } from '@/types';
@@ -61,7 +61,10 @@ export const GroupChatDialog = ({ users }: Props) => {
     >
       <DialogTrigger asChild>
         <button className="text-icon hover:bg-icon-hover hover:text-icon-accent cursor-pointer gap-1 rounded-md p-2">
-          <Plus strokeWidth={1.7} />
+          <Plus
+            size={ICON_SIZES.LG}
+            strokeWidth={ICON_STROKE_WIDTH}
+          />
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">

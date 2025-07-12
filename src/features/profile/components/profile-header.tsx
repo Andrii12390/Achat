@@ -5,6 +5,7 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 
 export const ProfileHeader = () => {
   const router = useRouter();
@@ -23,8 +24,8 @@ export const ProfileHeader = () => {
               onClick={handleGoBack}
             >
               <ChevronLeft
-                size={24}
-                strokeWidth={1.7}
+                size={ICON_SIZES.LG}
+                strokeWidth={ICON_STROKE_WIDTH}
               />
             </button>
 
@@ -43,8 +44,8 @@ export const ProfileHeader = () => {
             onClick={handleLogOut}
           >
             <LogOut
-              size={16}
-              strokeWidth={1.7}
+              size={ICON_SIZES.SM}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             <span className="hidden sm:inline">Log out</span>
           </Button>

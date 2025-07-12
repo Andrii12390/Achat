@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { DEFAULT_GROUP_IMAGE, PRIVATE_ROUTES } from '@/constants';
+import { DEFAULT_GROUP_IMAGE, ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 import { useChatActions } from '@/features/chat/hooks';
 import { useOnlineUsers } from '@/hooks/use-online-users';
 
@@ -53,8 +53,8 @@ export const ChatHeader = ({
           className="hover:bg-icon-hover text-icon hover:text-icon-accent cursor-pointer rounded-md p-2 transition-colors duration-200 sm:hidden"
         >
           <ChevronLeft
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
           />
         </Link>
         {isGroup ? (
@@ -81,8 +81,8 @@ export const ChatHeader = ({
       <DropdownMenu>
         <DropdownMenuTrigger className="hover:bg-icon-hover text-icon hover:text-icon-accent cursor-pointer rounded-md p-2">
           <MoreVertical
-            size={20}
-            strokeWidth={1.7}
+            size={ICON_SIZES.MD}
+            strokeWidth={ICON_STROKE_WIDTH}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-10">
@@ -94,8 +94,8 @@ export const ChatHeader = ({
           >
             <Trash2
               className="text-destructive"
-              size={24}
-              strokeWidth={1.7}
+              size={ICON_SIZES.LG}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             <span>Delete chat</span>
           </DropdownMenuItem>
@@ -107,8 +107,8 @@ export const ChatHeader = ({
               >
                 <LogOut
                   className="text-destructive"
-                  size={24}
-                  strokeWidth={1.7}
+                  size={ICON_SIZES.LG}
+                  strokeWidth={ICON_STROKE_WIDTH}
                 />
                 <span>Leave group</span>
               </DropdownMenuItem>
@@ -117,9 +117,9 @@ export const ChatHeader = ({
                 onClick={() => setIsOpenGroupModal(true)}
               >
                 <Edit
-                  size={24}
                   className="text-foreground"
-                  strokeWidth={1.7}
+                  size={ICON_SIZES.LG}
+                  strokeWidth={ICON_STROKE_WIDTH}
                 />
                 <span>Edit Group</span>
               </DropdownMenuItem>

@@ -4,6 +4,7 @@ import { Camera } from 'lucide-react';
 import { useState } from 'react';
 
 import { UserAvatar } from '@/components';
+import { ICON_SIZES, ICON_STROKE_WIDTH } from '@/constants';
 import { UserInfo, AvatarDialog } from '@/features/profile/components';
 import { useAvatar } from '@/features/profile/hooks';
 import { cn } from '@/lib/utils';
@@ -44,9 +45,9 @@ export const Profile = ({ username, email, avatarColor, imageUrl }: Props) => {
               onMouseLeave={() => setIsHovering(false)}
             >
               <Camera
-                size={24}
+                size={ICON_SIZES.LG}
+                strokeWidth={ICON_STROKE_WIDTH}
                 className="text-white"
-                strokeWidth={1.5}
               />
             </button>
           </div>

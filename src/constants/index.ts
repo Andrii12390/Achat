@@ -22,6 +22,20 @@ export const PUSHER_EVENTS = {
   PRESENCE_REMOVE_MEMBER: 'pusher:member_removed',
 } as const;
 
+export const ICON_SIZES = {
+  XS: 9,
+  SM: 16,
+  MD: 20,
+  LG: 24,
+  XL: 34,
+  '2XL': 48,
+  '3XL': 56,
+  '4XL': 72,
+  '5XL': 96,
+} as const;
+
+export const ICON_STROKE_WIDTH = 1.7;
+
 export const MESSAGE_IMAGES_BUCKET_FOLDER = process.env.MESSAGE_IMAGES_FOLDER ?? 'messages-images';
 export const USER_AVATARS_BUCKET_FOLDER = process.env.USER_AVATARS_FOLDER ?? 'user-avatars';
 

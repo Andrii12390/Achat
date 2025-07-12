@@ -4,7 +4,7 @@ import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import { PRIVATE_ROUTES } from '@/constants';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   error: Error & { digest?: string };
@@ -17,7 +17,8 @@ function GlobalErrorPage({ error, reset }: Props) {
       <section className="max-w-md space-y-6 text-center">
         <div className="text-destructive mx-auto mb-8 h-20 w-20">
           <AlertTriangle
-            size={80}
+            size={ICON_SIZES['4XL']}
+            strokeWidth={ICON_STROKE_WIDTH}
             className="animate-pulse"
           />
         </div>
@@ -35,8 +36,8 @@ function GlobalErrorPage({ error, reset }: Props) {
             className="flex items-center gap-2"
           >
             <RefreshCw
-              size={16}
-              strokeWidth={1.7}
+              size={ICON_SIZES.SM}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             Try Again
           </Button>
@@ -47,8 +48,8 @@ function GlobalErrorPage({ error, reset }: Props) {
               className="flex items-center gap-2"
             >
               <Home
-                size={16}
-                strokeWidth={1.7}
+                size={ICON_SIZES.SM}
+                strokeWidth={ICON_STROKE_WIDTH}
               />
               Go Home
             </Link>

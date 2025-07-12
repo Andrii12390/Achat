@@ -4,7 +4,7 @@ import { AlertTriangle, RefreshCw, LogIn } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import { PUBLIC_ROUTES } from '@/constants';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PUBLIC_ROUTES } from '@/constants';
 
 interface Props {
   error: Error & { digest?: string };
@@ -35,8 +35,8 @@ function AuthErrorPage({ error, reset }: Props) {
             className="flex items-center gap-2"
           >
             <RefreshCw
-              size={16}
-              strokeWidth={1.7}
+              size={ICON_SIZES.SM}
+              strokeWidth={ICON_STROKE_WIDTH}
             />
             Try Again
           </Button>
@@ -50,8 +50,8 @@ function AuthErrorPage({ error, reset }: Props) {
               className="flex items-center gap-2"
             >
               <LogIn
-                size={16}
-                strokeWidth={1.7}
+                size={ICON_SIZES.SM}
+                strokeWidth={ICON_STROKE_WIDTH}
               />
               Back to Login
             </Link>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { PRIVATE_ROUTES } from '@/constants';
+import { ICON_SIZES, ICON_STROKE_WIDTH, PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   email: string;
@@ -24,8 +24,8 @@ export const VerificationBanner = ({ email }: Props) => {
           className="hover:bg-secondary text-muted-foreground hover:text-foreground absolute top-3 right-3 rounded-full p-1.5 transition-colors sm:top-4 sm:right-4"
         >
           <X
-            size={16}
-            strokeWidth={1.7}
+            size={ICON_SIZES.SM}
+            strokeWidth={ICON_STROKE_WIDTH}
           />
         </button>
 
@@ -48,8 +48,8 @@ export const VerificationBanner = ({ email }: Props) => {
               >
                 Verify email
                 <ArrowRight
-                  size={14}
-                  strokeWidth={1.7}
+                  size={ICON_SIZES.SM}
+                  strokeWidth={ICON_STROKE_WIDTH}
                   className="transition-transform group-hover:translate-x-0.5"
                 />
               </Button>
