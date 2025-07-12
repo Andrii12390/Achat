@@ -14,7 +14,7 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { UserMultiSelect } from '@/features/user/components';
 import { Button } from './ui/button';
-import { chatService } from '@/features/chat/services';
+import { groupService } from '@/features/chat/services';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/constants';
@@ -37,7 +37,7 @@ export const GroupChatDialog = ({ users }: Props) => {
     setIsPending(true);
     if (!title.trim() || selectedUsers.length < 2) return;
 
-    const res = await chatService.createGroup(
+    const res = await groupService.create(
       selectedUsers.map(u => u.id),
       title.trim(),
     );

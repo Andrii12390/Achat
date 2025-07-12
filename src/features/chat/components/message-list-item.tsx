@@ -48,7 +48,7 @@ export const MessageListItem = ({
             <div
               className={cn(
                 'px-4 py-2 rounded-2xl shadow-sm',
-                isSender ? 'bg-primary-message rounded' : 'bg-secondary rounded-bl-md',
+                isSender ? 'bg-primary-message rounded-br-md' : 'bg-secondary rounded-bl-md',
               )}
             >
               {text ? (

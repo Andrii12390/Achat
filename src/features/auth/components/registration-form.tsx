@@ -4,7 +4,7 @@ import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth
 import { SocialSection, TextInputField } from '@/features/auth/components';
 import { registerUser } from '@/features/auth/actions';
 import { PROVIDERS } from '@/features/auth/lib/constants';
-import { PUBLIC_ROUTES } from '@/constants';
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from '@/constants';
 
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -42,7 +42,7 @@ export const RegistrationForm = () => {
         });
         if (signInRes?.ok) {
           await authService.sendCode();
-          router.push(PUBLIC_ROUTES.VERIFICATION);
+          router.push(PRIVATE_ROUTES.VERIFICATION);
         }
       }
     } catch (error) {
