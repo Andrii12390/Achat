@@ -43,6 +43,7 @@
   --color-icon-hover: var(--icon-hover);
   --color-primary-message: var(--primary-message);
   --color-search-section: var(--search-section);
+  --color-logo: var(--logo);
 }
 
 :root {
@@ -84,6 +85,7 @@
   --icon-hover: oklch(87.2% 0.01 258.338 / 0.3);
   --primary-message: oklch(0.541 0.281 293.009 / 0.2);
   --search-section: oklch(0.994 0 0);
+  --logo: oklch(0.7375 0.1451 289.08);
 }
 
 [data-theme='dark'] {
@@ -124,6 +126,7 @@
   --icon-hover: oklch(37.3% 0.034 259.733 / 0.3);
   --primary-message: oklch(0.541 0.281 293.009);
   --search-section: oklch(0.1693 0.0041 285.95);
+  --logo: oklch(0.7375 0.1451 289.08);
 }
 
 @layer base {
@@ -137,5 +140,29 @@
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.logo-glow {
+  animation: pulse-glow 4s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 1px #fff,
+      0 0 2px #fff,
+      0 0 3px #a899ff,
+      0 0 5px #a899ff,
+      0 0 7px #a899ff;
+  }
+  50% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 4px #fff,
+      0 0 6px #c1b8ff,
+      0 0 8px #c1b8ff,
+      0 0 10px #c1b8ff;
+  }
 }
 
