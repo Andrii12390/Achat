@@ -3,13 +3,13 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Rubik } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 
 import { SessionProvider } from '@/providers';
 
-const interSans = Inter({
-  variable: '--font-inter-sans',
+const rubik = Rubik({
+  variable: '--font-rubik',
   subsets: ['latin'],
 });
 
@@ -61,7 +61,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className={`${interSans.variable} antialiased`}>
+      <body className={`${rubik.variable} antialiased`}>
         <ThemeProvider defaultTheme="system">
           <SessionProvider>{children}</SessionProvider>
           <ToastContainer position="bottom-right" />
