@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { PUBLIC_ROUTES } from '@/constants';
 import { AlertTriangle, RefreshCw, LogIn } from 'lucide-react';
 import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { PUBLIC_ROUTES } from '@/constants';
 
 interface Props {
   error: Error & { digest?: string };
@@ -12,9 +13,9 @@ interface Props {
 
 function AuthErrorPage({ error, reset }: Props) {
   return (
-    <div className="h-dvh flex items-center justify-center bg-secondary/30 p-4">
-      <section className="text-center space-y-6 max-w-md">
-        <div className="mx-auto w-20 h-20 mb-8 text-destructive">
+    <div className="bg-secondary/30 flex h-dvh items-center justify-center p-4">
+      <section className="max-w-md space-y-6 text-center">
+        <div className="text-destructive mx-auto mb-8 h-20 w-20">
           <AlertTriangle
             size={80}
             className="animate-pulse"
@@ -22,13 +23,13 @@ function AuthErrorPage({ error, reset }: Props) {
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Authentication Error</h1>
+          <h1 className="text-foreground text-2xl font-bold sm:text-3xl">Authentication Error</h1>
           <p className="text-muted-foreground text-sm sm:text-base">
             Something went wrong during authentication. Please try again or return to login.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-3 pt-4">
+        <div className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
           <Button
             onClick={reset}
             className="flex items-center gap-2"
@@ -57,7 +58,7 @@ function AuthErrorPage({ error, reset }: Props) {
           </Button>
         </div>
 
-        <p className="text-xs text-muted-foreground pt-4">Error ID: {error.digest || 'Unknown'}</p>
+        <p className="text-muted-foreground pt-4 text-xs">Error ID: {error.digest || 'Unknown'}</p>
       </section>
     </div>
   );

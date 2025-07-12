@@ -1,9 +1,9 @@
 'use client';
 
-import { type Theme } from '@/types';
-import { useTheme } from '@/features/profile/hooks';
-import { themes } from '@/features/profile/data/themes';
 import { ThemeCard } from '@/features/profile/components';
+import { themes } from '@/features/profile/data/themes';
+import { useTheme } from '@/features/profile/hooks';
+import { type Theme } from '@/types';
 
 export const AccountPreferences = () => {
   const { selectedTheme, handleSwitchTheme } = useTheme();
@@ -11,10 +11,10 @@ export const AccountPreferences = () => {
   if (!selectedTheme) return null;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <section className="bg-card border border-border rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-        <h2 className="text-xl font-semibold text-foreground mb-6">Preferences</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
+      <section className="bg-card border-border rounded-xl border p-6 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-8">
+        <h2 className="text-foreground mb-6 text-xl font-semibold">Preferences</h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {themes.map(theme => (
             <ThemeCard
               key={theme.key}

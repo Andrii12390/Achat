@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { PRIVATE_ROUTES } from '@/constants';
 import { MessageCircleX, RefreshCw, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { PRIVATE_ROUTES } from '@/constants';
 
 interface Props {
   error: Error & { digest?: string };
@@ -12,9 +13,9 @@ interface Props {
 
 function ChatErrorPage({ error, reset }: Props) {
   return (
-    <div className="h-dvh flex items-center justify-center bg-background p-4">
-      <section className="text-center space-y-6 max-w-md">
-        <div className="mx-auto w-20 h-20 mb-8 text-destructive">
+    <div className="bg-background flex h-dvh items-center justify-center p-4">
+      <section className="max-w-md space-y-6 text-center">
+        <div className="text-destructive mx-auto mb-8 h-20 w-20">
           <MessageCircleX
             size={80}
             className="animate-pulse"
@@ -22,13 +23,13 @@ function ChatErrorPage({ error, reset }: Props) {
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Chat Error</h1>
+          <h1 className="text-foreground text-2xl font-bold sm:text-3xl">Chat Error</h1>
           <p className="text-muted-foreground text-sm sm:text-base">
             Failed to load this chat. It might be deleted or you have no access to it.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 pt-4 items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row">
           <Button
             onClick={reset}
             className="flex items-center gap-2"
@@ -42,7 +43,7 @@ function ChatErrorPage({ error, reset }: Props) {
 
           <Button
             variant="outline"
-            className="flex sm:hidden items-center gap-2"
+            className="flex items-center gap-2 sm:hidden"
             asChild
           >
             <Link href={PRIVATE_ROUTES.CHATS}>
@@ -55,7 +56,7 @@ function ChatErrorPage({ error, reset }: Props) {
           </Button>
         </div>
 
-        <p className="text-xs text-muted-foreground pt-4">Error ID: {error.digest || 'Unknown'}</p>
+        <p className="text-muted-foreground pt-4 text-xs">Error ID: {error.digest || 'Unknown'}</p>
       </section>
     </div>
   );

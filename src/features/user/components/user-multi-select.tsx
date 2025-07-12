@@ -1,8 +1,8 @@
 'use client';
 
+import { Check, ChevronsUpDown, X } from 'lucide-react';
 import { useState } from 'react';
 
-import { Check, ChevronsUpDown, X } from 'lucide-react';
 import { UserAvatar } from '@/components';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -14,9 +14,7 @@ import {
   CommandItem,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-
 import { cn } from '@/lib/utils';
-
 import { type User } from '@/types';
 
 interface Props {
@@ -52,9 +50,9 @@ export const UserMultiSelect = ({ users, selectedUsers, onSelectionChange }: Pro
           variant={'outline'}
           role="combobox"
           aria-expanded={isOpen}
-          className="w-full justify-between min-h-[2.5rem] h-auto p-2"
+          className="h-auto min-h-[2.5rem] w-full justify-between p-2"
         >
-          <div className="flex flex-wrap gap-1 flex-1">
+          <div className="flex flex-1 flex-wrap gap-1">
             {!selectedUsers.length ? (
               <span className="text-muted-foreground">Select users</span>
             ) : (
@@ -73,7 +71,7 @@ export const UserMultiSelect = ({ users, selectedUsers, onSelectionChange }: Pro
                   />
                   <span className="text-xs">{user.username}</span>
                   <span
-                    className="h-4 w-4 flex items-center justify-center hover:bg-muted rounded cursor-pointer"
+                    className="hover:bg-muted flex h-4 w-4 cursor-pointer items-center justify-center rounded"
                     onClick={e => {
                       e.preventDefault();
                       e.stopPropagation();

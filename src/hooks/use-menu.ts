@@ -1,8 +1,9 @@
 'use client';
 
+import { Users, MessageCircle, User } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { Users, MessageCircle, User } from 'lucide-react';
+
 import { PRIVATE_ROUTES } from '@/constants';
 
 export const useMenu = () => {

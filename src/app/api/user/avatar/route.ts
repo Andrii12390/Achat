@@ -1,9 +1,10 @@
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+
 import { getUser } from '@/actions';
 import { USER_AVATARS_BUCKET_FOLDER } from '@/constants';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { s3Service } from '@/lib/s3/s3-service';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 export async function POST(req: Request) {
   try {

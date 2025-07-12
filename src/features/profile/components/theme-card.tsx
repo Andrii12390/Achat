@@ -1,7 +1,6 @@
-import { cn } from '@/lib/utils';
-
-import { themes } from '@/features/profile/data/themes';
 import { Skeleton } from '@/components/ui/skeleton';
+import { themes } from '@/features/profile/data/themes';
+import { cn } from '@/lib/utils';
 
 interface Props {
   isActive: boolean;
@@ -16,9 +15,9 @@ export const ThemeCard = ({ isActive, theme, onClick }: Props) => {
     <button
       key={key}
       className={cn(
-        'p-4 rounded-xl shadow-md border space-y-3 transition-all hover:cursor-pointer hover:shadow-primary/50 hover:border-primary',
+        'hover:shadow-primary/50 hover:border-primary space-y-3 rounded-xl border p-4 shadow-md transition-all hover:cursor-pointer',
         cardClass,
-        isActive && 'ring-1 ring-primary border-primary',
+        isActive && 'ring-primary border-primary ring-1',
       )}
       onClick={onClick}
     >
@@ -31,13 +30,13 @@ export const ThemeCard = ({ isActive, theme, onClick }: Props) => {
           <Skeleton className={cn('h-3.5 w-3/4 rounded', figureClass)} />
         </div>
       </div>
-      <div className="flex pl-1 gap-2 items-center">
+      <div className="flex items-center gap-2 pl-1">
         <Icon
           className={iconClass}
           size={20}
           strokeWidth={1.7}
         />
-        <span className={cn('font-semibold text-sm', labelClass)}>{label}</span>
+        <span className={cn('text-sm font-semibold', labelClass)}>{label}</span>
       </div>
     </button>
   );

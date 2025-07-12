@@ -1,6 +1,10 @@
 'use client';
 
+import { Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 import {
   Dialog,
   DialogContent,
@@ -8,16 +12,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Plus } from 'lucide-react';
-import { User } from '@/types';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { UserMultiSelect } from '@/features/user/components';
-import { Button } from './ui/button';
-import { groupService } from '@/features/chat/services';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/constants';
+import { groupService } from '@/features/chat/services';
+import { UserMultiSelect } from '@/features/user/components';
+import { User } from '@/types';
+
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 
 interface Props {
   users: User[];
@@ -58,7 +60,7 @@ export const GroupChatDialog = ({ users }: Props) => {
       onOpenChange={setIsOpen}
     >
       <DialogTrigger asChild>
-        <button className="gap-1 p-2 text-icon hover:bg-icon-hover  hover:text-icon-accent cursor-pointer rounded-md">
+        <button className="text-icon hover:bg-icon-hover hover:text-icon-accent cursor-pointer gap-1 rounded-md p-2">
           <Plus strokeWidth={1.7} />
         </button>
       </DialogTrigger>
@@ -86,7 +88,7 @@ export const GroupChatDialog = ({ users }: Props) => {
               onSelectionChange={setSelectedUsers}
             />
             {selectedUsers.length < 2 && (
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 Select at least 2 members to create a group
               </p>
             )}

@@ -1,21 +1,17 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-import { type User } from '@/types';
-
+import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { SearchInput } from '@/components';
-import { EmptyState, UserListItem } from '.';
-
-import { chatService } from '@/features/chat/services';
-
 import { PRIVATE_ROUTES } from '@/constants';
-
+import { chatService } from '@/features/chat/services';
 import { useDebounce } from '@/hooks';
 import { useOnlineUsers } from '@/hooks/use-online-users';
+import { type User } from '@/types';
+
+import { EmptyState, UserListItem } from '.';
 
 interface Props {
   users: User[];
@@ -46,7 +42,7 @@ export const UserList = ({ users }: Props) => {
 
   return (
     <>
-      <div className="w-full sticky top-0 bg-search-section -translate-y-1 z-50 py-2 px-4">
+      <div className="bg-search-section sticky top-0 z-50 w-full -translate-y-1 px-4 py-2">
         <SearchInput
           placeholder="Search users..."
           query={query}
@@ -58,7 +54,7 @@ export const UserList = ({ users }: Props) => {
           filteredUsers.map(user => (
             <li
               key={user.id}
-              className="border-l-6 border-transparent hover:border-l-sidebar-border hover:bg-secondary/50"
+              className="hover:border-l-sidebar-border hover:bg-secondary/50 border-l-6 border-transparent"
               onClick={() => handleCreateChat(user.id)}
             >
               <UserListItem

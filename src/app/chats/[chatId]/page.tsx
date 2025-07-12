@@ -1,9 +1,9 @@
+import { notFound } from 'next/navigation';
+
 import { getUser } from '@/actions';
 import { getChat } from '@/features/chat/actions';
-
 import { ChatFooter, MessageList, ChatHeader } from '@/features/chat/components';
 import { getChatDisplayData } from '@/features/chat/lib/utils';
-import { notFound } from 'next/navigation';
 
 async function ChatPage({ params }: { params: Promise<{ chatId: string }> }) {
   const { chatId } = await params;
@@ -15,7 +15,7 @@ async function ChatPage({ params }: { params: Promise<{ chatId: string }> }) {
   const displayData = getChatDisplayData(chat, user);
 
   return (
-    <section className="w-full h-full flex flex-col">
+    <section className="flex h-full w-full flex-col">
       <ChatHeader
         userId={displayData.userId!}
         chatId={chatId}

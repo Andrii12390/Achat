@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { Smile } from 'lucide-react';
 import Picker, { EmojiClickData } from 'emoji-picker-react';
+import { Smile } from 'lucide-react';
+import { useState, useRef } from 'react';
+
 import { useClickOutside } from '@/hooks';
 
 interface Props {
@@ -32,7 +33,7 @@ export const EmojiPicker = ({ onPick }: Props) => {
       </button>
 
       {open && (
-        <div className="absolute bottom-12 right-0">
+        <div className="absolute right-0 bottom-12">
           <Picker
             autoFocusSearch={false}
             width={280}

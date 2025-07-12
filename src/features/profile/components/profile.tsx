@@ -1,13 +1,12 @@
 'use client';
 
-import { UserAvatar } from '@/components';
-import { UserInfo, AvatarDialog } from '@/features/profile/components';
-
-import { useAvatar } from '@/features/profile/hooks';
-import { cn } from '@/lib/utils';
-
 import { Camera } from 'lucide-react';
 import { useState } from 'react';
+
+import { UserAvatar } from '@/components';
+import { UserInfo, AvatarDialog } from '@/features/profile/components';
+import { useAvatar } from '@/features/profile/hooks';
+import { cn } from '@/lib/utils';
 
 interface Props {
   username: string;
@@ -22,12 +21,12 @@ export const Profile = ({ username, email, avatarColor, imageUrl }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <section className="bg-card border border-border rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-        <h2 className="text-xl font-semibold text-foreground mb-6">Personal Information</h2>
+    <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
+      <section className="bg-card border-border rounded-xl border p-6 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-8">
+        <h2 className="text-foreground mb-6 text-xl font-semibold">Personal Information</h2>
 
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-8">
-          <div className="relative shrink-0 group">
+          <div className="group relative shrink-0">
             <UserAvatar
               username={username}
               avatarColor={avatarColor}
@@ -37,7 +36,7 @@ export const Profile = ({ username, email, avatarColor, imageUrl }: Props) => {
 
             <button
               className={cn(
-                'absolute inset-0 size-24 flex items-center justify-center rounded-full bg-black/40 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50',
+                'focus:ring-primary/50 absolute inset-0 flex size-24 cursor-pointer items-center justify-center rounded-full bg-black/40 transition-all duration-200 focus:ring-2 focus:outline-none',
                 isHovering ? 'opacity-100' : 'opacity-0 hover:opacity-100',
               )}
               onClick={() => setIsOpenDialog(true)}
@@ -52,7 +51,7 @@ export const Profile = ({ username, email, avatarColor, imageUrl }: Props) => {
             </button>
           </div>
 
-          <div className="flex-1 w-full">
+          <div className="w-full flex-1">
             <UserInfo
               username={username}
               email={email}

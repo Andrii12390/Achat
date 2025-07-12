@@ -1,6 +1,7 @@
-import { cn } from '@/lib/utils';
 import { Upload } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
+
+import { cn } from '@/lib/utils';
 
 interface Props {
   handleSelectFile: (f: File) => void;
@@ -17,7 +18,7 @@ export const AvatarDropzone = ({ handleSelectFile }: Props) => {
     <div
       {...getRootProps()}
       className={cn(
-        'border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer text-icon',
+        'text-icon cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-all',
         isDragActive
           ? 'border-primary bg-primary/10'
           : 'border-muted-foreground/25 hover:border-muted-foreground/50',
@@ -25,8 +26,8 @@ export const AvatarDropzone = ({ handleSelectFile }: Props) => {
     >
       <input {...getInputProps()} />
 
-      <Upload className="size-12 text-muted-foreground mx-auto mb-4" />
-      <h3 className="font-medium mb-2">Drop your audio file here</h3>
+      <Upload className="text-muted-foreground mx-auto mb-4 size-12" />
+      <h3 className="mb-2 font-medium">Drop your audio file here</h3>
       <p className="text-muted-foreground text-sm">or click to browse</p>
     </div>
   );

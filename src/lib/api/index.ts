@@ -1,6 +1,7 @@
-import { ApiResponse } from '@/types';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { StatusCodes } from 'http-status-codes';
+
+import { ApiResponse } from '@/types';
 
 export function createApiResponse<T>(
   success: boolean,

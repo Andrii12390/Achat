@@ -1,21 +1,19 @@
 'use client';
 
-import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth/lib/schemas';
-import { SocialSection, TextInputField } from '@/features/auth/components';
-import { registerUser } from '@/features/auth/actions';
-import { PROVIDERS } from '@/features/auth/lib/constants';
-import { PRIVATE_ROUTES, PUBLIC_ROUTES } from '@/constants';
-
-import { Form } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
-import { signIn } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from '@/constants';
+import { registerUser } from '@/features/auth/actions';
+import { SocialSection, TextInputField } from '@/features/auth/components';
+import { PROVIDERS } from '@/features/auth/lib/constants';
+import { type RegistrationValues, RegistrationFormSchema } from '@/features/auth/lib/schemas';
 
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { authService } from '../services/auth-service';
 
 export const RegistrationForm = () => {
@@ -56,10 +54,10 @@ export const RegistrationForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 p-10 rounded-md shadow-2xl shadow-primary/25 dark:shadow-primary/50 border border-border min-w-84"
+        className="shadow-primary/25 dark:shadow-primary/50 border-border flex min-w-84 flex-col gap-4 rounded-md border p-10 shadow-2xl"
       >
         <h3
-          className="text-2xl font-semibold text-center"
+          className="text-center text-2xl font-semibold"
           data-testid="form-title"
         >
           Registration
@@ -96,14 +94,14 @@ export const RegistrationForm = () => {
           Already have an account?
         </Link>
         {form.formState.errors.root?.message && (
-          <p className="py-2 px-3 rounded-md text-destructive bg-destructive/10">
+          <p className="text-destructive bg-destructive/10 rounded-md px-3 py-2">
             {form.formState.errors.root?.message}
           </p>
         )}
         <SocialSection />
         <Button
           disabled={form.formState.isSubmitting}
-          className="text-center text-md mt-4 w-1/2 mx-auto"
+          className="text-md mx-auto mt-4 w-1/2 text-center"
           data-testid="registration-submit"
         >
           {form.formState.isSubmitting ? 'Submitting' : 'Register'}

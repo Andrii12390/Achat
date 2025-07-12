@@ -1,8 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, vi, it, expect, beforeEach } from 'vitest';
-import { RegistrationForm } from '@/features/auth/components';
-import { PUBLIC_ROUTES } from '@/constants';
 import userEvent from '@testing-library/user-event';
+import { describe, vi, it, expect, beforeEach } from 'vitest';
+
+import { PUBLIC_ROUTES } from '@/constants';
+import { RegistrationForm } from '@/features/auth/components';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({

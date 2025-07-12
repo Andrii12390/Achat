@@ -1,10 +1,11 @@
+import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+
 import { getUser } from '@/actions';
 import { DEFAULT_GROUP_IMAGE, PUSHER_EVENTS, USER_AVATARS_BUCKET_FOLDER } from '@/constants';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
 import { s3Service } from '@/lib/s3/s3-service';
-import { StatusCodes, ReasonPhrases } from 'http-status-codes';
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
   try {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { pusherClient } from '@/lib/pusher';
+
 import { PUSHER_EVENTS } from '@/constants';
+import { pusherClient } from '@/lib/pusher';
 
 export interface OnlineUser {
   id: string;

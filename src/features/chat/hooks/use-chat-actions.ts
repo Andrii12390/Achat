@@ -1,7 +1,8 @@
 import { useRouter } from 'next/navigation';
-import { chatService, groupService } from '@/features/chat/services';
-import { PRIVATE_ROUTES } from '@/constants';
 import { toast } from 'react-toastify';
+
+import { PRIVATE_ROUTES } from '@/constants';
+import { chatService, groupService } from '@/features/chat/services';
 
 export const useChatActions = (chatId: string) => {
   const router = useRouter();

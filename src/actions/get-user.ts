@@ -1,6 +1,7 @@
 'use server';
 
 import { getServerSession } from 'next-auth';
+
 import { authOptions } from '@/lib/next-auth';
 
 export const getUser = async () => {

@@ -1,9 +1,10 @@
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { Resend } from 'resend';
+
 import { getUser } from '@/actions';
 import VerificationEmail from '@/features/auth/components/email/verification-template';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { Resend } from 'resend';
 
 export async function POST() {
   try {

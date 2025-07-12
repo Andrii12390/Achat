@@ -1,5 +1,6 @@
-import { cn } from '@/lib/utils';
 import Image from 'next/image';
+
+import { cn } from '@/lib/utils';
 
 type AvatarSize = 'sm' | 'md' | 'xl';
 
@@ -22,7 +23,7 @@ const OnlineIndicator = ({ isOnline = false, size }: { isOnline?: boolean; size:
   return (
     <div
       className={cn(
-        'absolute rounded-full bg-primary ring-2 ring-white right-0 top-1',
+        'bg-primary absolute top-1 right-0 rounded-full ring-2 ring-white',
         sizeConfig[size].indicator,
       )}
     />
@@ -52,9 +53,9 @@ export const UserAvatar = ({ username, isOnline, imageUrl, avatarColor, size = '
 
   return (
     <div
-      className={cn('relative flex justify-center items-center rounded-full', avatarColor, avatar)}
+      className={cn('relative flex items-center justify-center rounded-full', avatarColor, avatar)}
     >
-      <span className={cn('font-semibold text-primary-foreground', text)}>
+      <span className={cn('text-primary-foreground font-semibold', text)}>
         {username[0].toUpperCase()}
       </span>
       <OnlineIndicator

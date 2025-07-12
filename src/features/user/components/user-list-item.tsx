@@ -9,7 +9,7 @@ interface Props {
 
 export const UserListItem = ({ username, imageUrl, avatarColor, isOnline = false }: Props) => {
   return (
-    <div className="flex items-center gap-3 p-3 cursor-pointer">
+    <div className="flex cursor-pointer items-center gap-3 p-3">
       <UserAvatar
         username={username}
         avatarColor={avatarColor}

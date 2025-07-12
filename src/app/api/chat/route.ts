@@ -1,9 +1,10 @@
-import { getUser } from '@/actions';
-import { apiError, apiSuccess } from '@/lib/api';
-import { DEFAULT_GROUP_IMAGE, PUSHER_EVENTS } from '@/constants';
-import { prisma } from '@/lib/prisma';
 import { Chat } from '@prisma/client';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+
+import { getUser } from '@/actions';
+import { DEFAULT_GROUP_IMAGE, PUSHER_EVENTS } from '@/constants';
+import { apiError, apiSuccess } from '@/lib/api';
+import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
 
 export async function POST(req: Request) {

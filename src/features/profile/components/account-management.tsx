@@ -1,12 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 import { toast } from 'react-toastify';
 
+import { Button } from '@/components/ui/button';
 import { userService } from '@/features/user/services';
-
-import { signOut } from 'next-auth/react';
 
 export const AccountManagement = () => {
   const handleDelete = async () => {
@@ -20,10 +19,10 @@ export const AccountManagement = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
-      <section className="bg-card border border-border rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-        <h2 className="font-semibold text-xl mb-6">Account Management</h2>
-        <p className="p-4 rounded-md bg-destructive/10 text-destructive mb-4">
+    <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
+      <section className="bg-card border-border rounded-xl border p-6 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-8">
+        <h2 className="mb-6 text-xl font-semibold">Account Management</h2>
+        <p className="bg-destructive/10 text-destructive mb-4 rounded-md p-4">
           Notice, If you delete your account, all your data will be permanently lost.
         </p>
         <Button

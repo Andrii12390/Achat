@@ -1,15 +1,14 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import type { Chat } from '@/types';
 
 import { SearchInput } from '@/components';
-import { ChatListItem, EmptyState } from '.';
-
 import { useDebounce } from '@/hooks';
 
-import { usePathname } from 'next/navigation';
+import { ChatListItem, EmptyState } from '.';
 import { useChats } from '../hooks';
 
 interface Props {
@@ -35,7 +34,7 @@ export const ChatList = ({ initialChats, userEmail }: Props) => {
 
   return (
     <>
-      <div className="w-full sticky top-0 bg-search-section -translate-y-1 z-50 py-2 px-4">
+      <div className="bg-search-section sticky top-0 z-50 w-full -translate-y-1 px-4 py-2">
         <SearchInput
           placeholder="Search chats..."
           query={query}

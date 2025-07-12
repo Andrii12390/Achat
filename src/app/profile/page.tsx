@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { getUser } from '@/actions';
 import {
   Profile,
@@ -6,7 +8,6 @@ import {
   AccountManagement,
 } from '@/features/profile/components';
 import { VerificationBanner } from '@/features/profile/components/verification-banner';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Profile',

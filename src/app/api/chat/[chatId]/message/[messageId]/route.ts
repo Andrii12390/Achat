@@ -1,8 +1,9 @@
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+
 import { getUser } from '@/actions';
 import { apiError, apiSuccess } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 export async function DELETE(
   req: Request,

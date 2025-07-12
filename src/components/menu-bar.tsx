@@ -1,21 +1,22 @@
 'use client';
 
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+
 import { useMenu } from '@/hooks';
+import { cn } from '@/lib/utils';
 
 export const Menubar = () => {
   const menu = useMenu();
 
   return (
-    <nav className="p-2.5 bg-secondary/50 border-t border-border">
+    <nav className="bg-secondary/50 border-border border-t p-2.5">
       <ul className="grid grid-cols-3 place-items-center">
         {menu.map(({ href, icon: Icon, text, isCurrent }) => (
           <li key={href}>
             <Link
               href={href}
               className={cn(
-                'py-2 px-4  rounded-md block ',
+                'block rounded-md px-4 py-2',
                 isCurrent
                   ? 'text-primary bg-primary/10'
                   : 'hover:bg-icon-hover text-icon hover:text-icon-accent',
@@ -26,7 +27,7 @@ export const Menubar = () => {
                 strokeWidth={1.7}
                 className="mx-auto"
               />
-              <p className="text-xs font-medium mt-2">{text}</p>
+              <p className="mt-2 text-xs font-medium">{text}</p>
             </Link>
           </li>
         ))}

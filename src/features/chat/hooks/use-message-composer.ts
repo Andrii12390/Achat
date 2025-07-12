@@ -1,7 +1,8 @@
-import { useRef, useState, useCallback } from 'react';
-import { messageService } from '@/features/chat/services';
 import { type EmojiClickData } from 'emoji-picker-react';
+import { useRef, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
+
+import { messageService } from '@/features/chat/services';
 
 export const useMessageComposer = (chatId: string) => {
   const [text, setText] = useState('');

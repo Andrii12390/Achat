@@ -1,8 +1,9 @@
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { NextResponse } from 'next/server';
+
 import { getUser } from '@/actions';
 import { apiError } from '@/lib/api';
 import { pusherServer } from '@/lib/pusher';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {

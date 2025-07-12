@@ -1,11 +1,13 @@
-import GoogleProvider from 'next-auth/providers/google';
-import GitHubProvider from 'next-auth/providers/github';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from '../prisma';
 import bcrypt from 'bcrypt';
 import { NextAuthOptions } from 'next-auth';
-import { PROVIDERS } from '@/features/auth/lib/constants';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
+
 import { registerUser } from '@/features/auth/actions';
+import { PROVIDERS } from '@/features/auth/lib/constants';
+
+import { prisma } from '../prisma';
 
 export const authOptions: NextAuthOptions = {
   providers: [

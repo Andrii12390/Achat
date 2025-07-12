@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { avatarService } from '@/features/profile/services';
 import { toast } from 'react-toastify';
+
+import { avatarService } from '@/features/profile/services';
 
 export const useAvatar = (imageUrl: string | null) => {
   const [avatar, setAvatar] = useState(imageUrl);

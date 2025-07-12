@@ -1,3 +1,6 @@
+import { File, Trash2 } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -5,8 +8,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { File, Trash2 } from 'lucide-react';
 import { AvatarDropzone } from '@/features/profile/components';
 
 interface Props {
@@ -25,7 +26,7 @@ export const AvatarDialog = ({ open, onOpenChange, hasAvatar, onUpload, onDelete
     >
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-center text-xl text-secondary-foreground">
+          <DialogTitle className="text-secondary-foreground text-center text-xl">
             Manage your avatar
           </DialogTitle>
         </DialogHeader>
@@ -35,10 +36,10 @@ export const AvatarDialog = ({ open, onOpenChange, hasAvatar, onUpload, onDelete
           <div className="bg-primary/15 rounded-lg p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="size-10 bg-primary rounded-lg flex items-center justify-center">
+                <div className="bg-primary flex size-10 items-center justify-center rounded-lg">
                   <File size={20} />
                 </div>
-                <p className="font-medium text-sm">Avatar already uploaded</p>
+                <p className="text-sm font-medium">Avatar already uploaded</p>
               </div>
               <Button
                 variant="ghost"
@@ -49,7 +50,7 @@ export const AvatarDialog = ({ open, onOpenChange, hasAvatar, onUpload, onDelete
                 <Trash2 size={16} />
               </Button>
             </div>
-            <div className="mt-4 pt-4 border-t border-border">
+            <div className="border-border mt-4 border-t pt-4">
               <AvatarDropzone handleSelectFile={onUpload} />
             </div>
           </div>

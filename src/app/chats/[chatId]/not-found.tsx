@@ -1,37 +1,38 @@
-import { PRIVATE_ROUTES } from '@/constants';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
+import { PRIVATE_ROUTES } from '@/constants';
+
 function ChatNotFoundPage() {
   return (
-    <div className="h-full pt-[25dvh] flex justify-center bg-secondary/30">
-      <section className="container text-center space-y-6 max-w-md">
-        <div className="relative mx-auto w-24 h-24 mb-8">
+    <div className="bg-secondary/30 flex h-full justify-center pt-[25dvh]">
+      <section className="container max-w-md space-y-6 text-center">
+        <div className="relative mx-auto mb-8 h-24 w-24">
           <MessageCircle
             size={96}
             className="text-muted-foreground/30 animate-pulse"
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-2xl font-bold text-muted-foreground/50">?</span>
+            <span className="text-muted-foreground/50 text-2xl font-bold">?</span>
           </div>
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Chat not found</h1>
+          <h1 className="text-foreground text-2xl font-bold sm:text-3xl">Chat not found</h1>
           <p className="text-muted-foreground text-sm sm:text-base">
             The chat you&apos;re looking for doesn&apos;t exist or has been deleted.
           </p>
         </div>
 
         <Link
-          className="w-fit mx-auto text-lg group flex gap-2 items-center border-b border-transparent hover:border-foreground"
+          className="group hover:border-foreground mx-auto flex w-fit items-center gap-2 border-b border-transparent text-lg"
           href={PRIVATE_ROUTES.CHATS}
         >
           <span>Back to Chats</span>
           <ArrowRight
             size={20}
             strokeWidth={1.7}
-            className="group-hover:translate-x-0.5 transition-transform"
+            className="transition-transform group-hover:translate-x-0.5"
           />
         </Link>
       </section>

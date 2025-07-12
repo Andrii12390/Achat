@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { ToastContainer } from 'react-toastify';
-import { SessionProvider } from '@/providers';
+
 import { ThemeProvider } from 'next-themes';
+
+import './globals.css';
+import { Inter } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
+
+import { SessionProvider } from '@/providers';
 
 const interSans = Inter({
   variable: '--font-inter-sans',
