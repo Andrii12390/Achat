@@ -1,26 +1,24 @@
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-import { getUser } from '@/actions';
-import { apiError, apiSuccess } from '@/lib/api';
+import { PUSHER_EVENTS } from '@/constants';
+import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: Promise<{ chatId: string; messageId: string }> },
-) {
+type RouteContext = {
+  params: {
+    chatId: string;
+    messageId: string;
+  };
+};
+
+export const DELETE = withAuth(async (req, context: RouteContext, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     if (!user.isVerified) {
       return apiError('Not verified', StatusCodes.FORBIDDEN);
     }
 
-    const { chatId, messageId } = await params;
+    const { chatId, messageId } = context.params;
 
     await prisma.message.delete({
       where: {
@@ -29,10 +27,10 @@ export async function DELETE(
       },
     });
 
-    await pusherServer.trigger(chatId, 'delete-message', messageId);
+    await pusherServer.trigger(chatId, PUSHER_EVENTS.DELETE_MESSAGE, messageId);
 
     return apiSuccess(null, ReasonPhrases.OK, StatusCodes.OK);
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});

@@ -1,19 +1,12 @@
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { Resend } from 'resend';
 
-import { getUser } from '@/actions';
 import VerificationEmail from '@/features/auth/components/email/verification-template';
-import { apiError, apiSuccess } from '@/lib/api';
+import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 
-export async function POST() {
+export const POST = withAuth(async (req, _, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     const code = Math.floor(100000 + Math.random() * 900000);
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
@@ -38,16 +31,10 @@ export async function POST() {
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});
 
-export async function PATCH(req: Request) {
+export const PATCH = withAuth(async (req, _, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     const { code } = await req.json();
 
     if (!code) {
@@ -87,4 +74,4 @@ export async function PATCH(req: Request) {
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});

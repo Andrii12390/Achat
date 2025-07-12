@@ -1,17 +1,10 @@
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-import { getUser } from '@/actions';
-import { apiError, apiSuccess } from '@/lib/api';
+import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 
-export async function GET() {
+export const GET = withAuth(async (req, _, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     const usersList = await prisma.user.findMany({
       omit: {
         password: true,
@@ -30,16 +23,10 @@ export async function GET() {
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});
 
-export async function DELETE() {
+export const DELETE = withAuth(async (req, _, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     await prisma.user.delete({
       where: {
         id: user.id,
@@ -50,4 +37,4 @@ export async function DELETE() {
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});

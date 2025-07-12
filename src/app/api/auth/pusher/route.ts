@@ -1,18 +1,11 @@
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { NextResponse } from 'next/server';
 
-import { getUser } from '@/actions';
-import { apiError } from '@/lib/api';
+import { apiError, withAuth } from '@/lib/api';
 import { pusherServer } from '@/lib/pusher';
 
-export async function POST(req: Request) {
+export const POST = withAuth(async (req, _, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     const body = await req.text();
 
     const params = new URLSearchParams(body);
@@ -39,4 +32,4 @@ export async function POST(req: Request) {
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});

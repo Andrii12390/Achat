@@ -1,25 +1,24 @@
-import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-import { getUser } from '@/actions';
 import { DEFAULT_GROUP_IMAGE, PUSHER_EVENTS, USER_AVATARS_BUCKET_FOLDER } from '@/constants';
-import { apiError, apiSuccess } from '@/lib/api';
+import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
 import { s3Service } from '@/lib/s3/s3-service';
 
-export async function DELETE(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
+type RouteContext = {
+  params: {
+    chatId: string;
+  };
+};
+
+export const DELETE = withAuth(async (req, context: RouteContext, user) => {
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
     if (!user.isVerified) {
       return apiError('Not verified', StatusCodes.FORBIDDEN);
     }
 
-    const { chatId } = await params;
+    const { chatId } = context.params;
 
     const userChat = await prisma.userChat.findUnique({
       where: {
@@ -51,26 +50,14 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ chatI
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-}
+});
 
-export async function PATCH(req: Request, { params }: { params: Promise<{ chatId: string }> }) {
+export const PATCH = withAuth(async (req, context: RouteContext, user) => {
+  const { chatId } = context.params;
   try {
-    const user = await getUser();
-
-    if (!user) {
-      return apiError(ReasonPhrases.UNAUTHORIZED, StatusCodes.UNAUTHORIZED);
-    }
-
-    const { chatId } = await params;
-
     const userChat = await prisma.userChat.findFirst({
-      where: {
-        userId: user.id,
-        chatId,
-      },
-      include: {
-        chat: true,
-      },
+      where: { userId: user.id, chatId },
+      include: { chat: true },
     });
 
     if (!userChat) {
@@ -89,37 +76,17 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ chatId
       title: title.trim(),
     };
 
-    if (file instanceof File) {
-      if (userChat.chat.imageUrl && userChat.chat.imageUrl !== DEFAULT_GROUP_IMAGE) {
-        await s3Service.deleteFile(userChat.chat.imageUrl);
-      }
-      const fileUrl = await s3Service.uploadFile(
-        Buffer.from(await file.arrayBuffer()),
-        file.name,
-        USER_AVATARS_BUCKET_FOLDER,
-      );
-      updateData.imageUrl = fileUrl;
-    } else if (file === 'null') {
-      if (userChat.chat.imageUrl) {
-        await s3Service.deleteFile(userChat.chat.imageUrl);
-      }
-      updateData.imageUrl = DEFAULT_GROUP_IMAGE;
+    const newImageUrl = await handleGroupImage(file, userChat.chat.imageUrl);
+    if (newImageUrl !== undefined) {
+      updateData.imageUrl = newImageUrl;
     }
 
     const updatedChat = await prisma.chat.update({
-      where: {
-        id: chatId,
-      },
+      where: { id: chatId },
       data: updateData,
       include: {
         participants: {
-          select: {
-            user: {
-              select: {
-                email: true,
-              },
-            },
-          },
+          select: { user: { select: { email: true } } },
         },
       },
     });
@@ -134,4 +101,34 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ chatId
   } catch {
     return apiError(ReasonPhrases.INTERNAL_SERVER_ERROR, StatusCodes.INTERNAL_SERVER_ERROR);
   }
+});
+
+async function handleGroupImage(
+  file: FormDataEntryValue | null,
+  currentImageUrl: string | null,
+): Promise<string | null | undefined> {
+  const isNewFile = file instanceof File;
+  const isImageRemoved = file === 'null';
+
+  if (isNewFile) {
+    const newImageUrl = await s3Service.uploadFile(
+      Buffer.from(await file.arrayBuffer()),
+      file.name,
+      USER_AVATARS_BUCKET_FOLDER,
+    );
+
+    if (currentImageUrl && currentImageUrl !== DEFAULT_GROUP_IMAGE) {
+      await s3Service.deleteFile(currentImageUrl);
+    }
+    return newImageUrl;
+  }
+
+  if (isImageRemoved) {
+    if (currentImageUrl && currentImageUrl !== DEFAULT_GROUP_IMAGE) {
+      await s3Service.deleteFile(currentImageUrl);
+    }
+    return null;
+  }
+
+  return undefined;
 }
