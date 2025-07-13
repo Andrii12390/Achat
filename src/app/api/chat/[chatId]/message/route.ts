@@ -8,14 +8,8 @@ import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
 import { s3Service } from '@/lib/s3/s3-service';
 
-type RouteContext = {
-  params: {
-    chatId: string;
-  };
-};
-
-export const POST = withAuth(async (req, context: RouteContext, user) => {
-  const { chatId } = context.params;
+export const POST = withAuth<{ chatId: string }>(async (req, context, user) => {
+  const { chatId } = await context.params;
   try {
     if (!user.isVerified) {
       return apiError('Email not verified.', StatusCodes.FORBIDDEN);

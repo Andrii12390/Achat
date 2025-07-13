@@ -6,19 +6,13 @@ import { prisma } from '@/lib/prisma';
 import { pusherServer } from '@/lib/pusher';
 import { s3Service } from '@/lib/s3/s3-service';
 
-type RouteContext = {
-  params: {
-    chatId: string;
-  };
-};
-
-export const DELETE = withAuth(async (req, context: RouteContext, user) => {
+export const DELETE = withAuth<{ chatId: string }>(async (req, context, user) => {
   try {
     if (!user.isVerified) {
       return apiError('Not verified', StatusCodes.FORBIDDEN);
     }
 
-    const { chatId } = context.params;
+    const { chatId } = await context.params;
 
     const userChat = await prisma.userChat.findUnique({
       where: {
@@ -52,8 +46,8 @@ export const DELETE = withAuth(async (req, context: RouteContext, user) => {
   }
 });
 
-export const PATCH = withAuth(async (req, context: RouteContext, user) => {
-  const { chatId } = context.params;
+export const PATCH = withAuth<{ chatId: string }>(async (req, context, user) => {
+  const { chatId } = await context.params;
   try {
     const userChat = await prisma.userChat.findFirst({
       where: { userId: user.id, chatId },

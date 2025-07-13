@@ -6,11 +6,12 @@ import { getUser } from '@/actions';
 import { ApiResponse } from '@/types';
 import { type User } from '@/types';
 
-type AuthenticatedApiHandler<T> = (
+type AuthenticatedApiHandler<T = unknown> = (
   req: NextRequest,
-  context: { params: T },
+  context: { params: Promise<T> },
   user: User,
 ) => Promise<Response> | Response;
+
 export function createApiResponse<T>(
   success: boolean,
   data?: T,
@@ -89,7 +90,7 @@ class ApiClient {
 export const api = new ApiClient();
 
 export const withAuth = <T>(handler: AuthenticatedApiHandler<T>) => {
-  return async (req: NextRequest, context: { params: T }) => {
+  return async (req: NextRequest, context: { params: Promise<T> }) => {
     try {
       const user = await getUser();
 

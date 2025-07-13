@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 
-export const GET = withAuth(async (req, _, user) => {
+export const GET = withAuth<object>(async (req, _, user) => {
   try {
     const usersList = await prisma.user.findMany({
       omit: {
@@ -25,7 +25,7 @@ export const GET = withAuth(async (req, _, user) => {
   }
 });
 
-export const DELETE = withAuth(async (req, _, user) => {
+export const DELETE = withAuth<object>(async (req, _, user) => {
   try {
     await prisma.user.delete({
       where: {

@@ -3,19 +3,13 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 
-type RouteContext = {
-  params: {
-    chatId: string;
-  };
-};
-
-export const POST = withAuth(async (req, context: RouteContext, user) => {
+export const POST = withAuth<{ chatId: string }>(async (req, context, user) => {
   try {
     if (!user.isVerified) {
       return apiError('Not verified', StatusCodes.FORBIDDEN);
     }
 
-    const { chatId } = context.params;
+    const { chatId } = await context.params;
 
     await prisma.userChat.delete({
       where: {

@@ -92,7 +92,7 @@ async function handleGroupCreation(
   return apiSuccess(newChat.id, ReasonPhrases.CREATED, StatusCodes.CREATED);
 }
 
-export const POST = withAuth(async (req, _, currentUser) => {
+export const POST = withAuth<object>(async (req, _, currentUser) => {
   try {
     if (!currentUser.isVerified) {
       return apiError(

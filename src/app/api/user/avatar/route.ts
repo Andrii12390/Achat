@@ -5,7 +5,7 @@ import { apiError, apiSuccess, withAuth } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { s3Service } from '@/lib/s3/s3-service';
 
-export const POST = withAuth(async (req, _, user) => {
+export const POST = withAuth<object>(async (req, _, user) => {
   try {
     const formData = await req.formData();
     const file = formData.get('file');
@@ -35,7 +35,7 @@ export const POST = withAuth(async (req, _, user) => {
   }
 });
 
-export const DELETE = withAuth(async (req, _, user) => {
+export const DELETE = withAuth<object>(async (req, _, user) => {
   try {
     if (!user.imageUrl) {
       return apiError('User does not have an avatar to delete', StatusCodes.CONFLICT);

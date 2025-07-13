@@ -1,10 +1,10 @@
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 import { apiError, withAuth } from '@/lib/api';
 import { pusherServer } from '@/lib/pusher';
 
-export const POST = withAuth(async (req, _, user) => {
+export const POST = withAuth<object>(async (req: NextRequest, _, user) => {
   try {
     const body = await req.text();
 
