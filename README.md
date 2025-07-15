@@ -4,8 +4,6 @@
 
 **🚀 Live Demo: [a-chat.xyz](https://a-chat.xyz)**
 
-<br>
-
 ## 📸 Preview
 
 <p align="center">
@@ -47,17 +45,16 @@ To run the project locally, follow these steps:
 
 ### 1. Prerequisites
 
-- [Node.js](https://nodejs.org/en/) (v18.17 or newer)
+- [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
-- [PostgreSQL](https://www.postgresql.org/download/)
 
 ### 2. Installation
 
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/achat-v2.git
-    cd achat-v2
+    git clone https://github.com/Andrii12390/Achat.git
+    cd Achat
     ```
 
 2.  **Install dependencies:**
@@ -90,3 +87,4 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for d
 ---
 
 **⭐ Star if you like it! ⭐**
+
