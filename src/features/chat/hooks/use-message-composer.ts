@@ -33,9 +33,13 @@ export const useMessageComposer = (chatId: string) => {
   };
 
   const sendMessage = useCallback(async () => {
+    const trimmedText = text.trim();
+
+    if (isSending || !trimmedText) return;
+
     setIsSending(true);
 
-    const res = await messageService.sendText({ chatId, text: text.trim() });
+    const res = await messageService.sendText({ chatId, text: trimmedText });
 
     if (!res.success) {
       toast.error(res.message);
@@ -43,7 +47,7 @@ export const useMessageComposer = (chatId: string) => {
 
     setText('');
     setIsSending(false);
-  }, [chatId, text]);
+  }, [chatId, text, isSending]);
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
