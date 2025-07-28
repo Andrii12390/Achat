@@ -1,6 +1,5 @@
 import { type EmojiClickData } from 'emoji-picker-react';
 import { useRef, useState, useCallback } from 'react';
-import { toast } from 'react-toastify';
 
 import { messageService } from '@/features/chat/services';
 
@@ -22,11 +21,7 @@ export const useMessageComposer = (chatId: string) => {
 
     setIsSending(true);
 
-    const res = await messageService.sendImage({ chatId, formData });
-
-    if (!res.success) {
-      toast.error(res.message);
-    }
+    await messageService.sendImage({ chatId, formData });
 
     setIsSending(false);
     e.target.value = '';
@@ -39,11 +34,7 @@ export const useMessageComposer = (chatId: string) => {
 
     setIsSending(true);
 
-    const res = await messageService.sendText({ chatId, text: trimmedText });
-
-    if (!res.success) {
-      toast.error(res.message);
-    }
+    await messageService.sendText({ chatId, text: trimmedText });
 
     setText('');
     setIsSending(false);
