@@ -138,6 +138,11 @@
   }
 }
 
+.bg-toast {
+  background-color: var(--background);
+  backdrop-filter: blur(40px);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -165,4 +170,3 @@
       0 0 10px #c1b8ff;
   }
 }
-

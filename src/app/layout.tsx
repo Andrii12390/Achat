@@ -64,7 +64,11 @@ export default function RootLayout({
       <body className={`${rubik.variable} antialiased`}>
         <ThemeProvider defaultTheme="system">
           <SessionProvider>{children}</SessionProvider>
-          <ToastContainer position="bottom-right" />
+          <ToastContainer
+            position="bottom-right"
+            limit={3}
+            toastClassName="bg-toast"
+          />
         </ThemeProvider>
       </body>
     </html>
