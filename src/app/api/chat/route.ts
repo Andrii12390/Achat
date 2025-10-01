@@ -47,9 +47,16 @@ async function handleDmCreation(currentUser: User, otherUserId: string) {
     include: { participants: { include: { user: true } } },
   });
 
+  const normalizedChat = {
+    ...newChat,
+    title: otherUser.username,
+    imageUrl: otherUser.avatarColor,
+    avatarColor: otherUser.avatarColor,
+  };
+
   await Promise.all(
     newChat.participants.map(p =>
-      pusherServer.trigger(p.user.email, PUSHER_EVENTS.NEW_CHAT, newChat),
+      pusherServer.trigger(p.user.email, PUSHER_EVENTS.NEW_CHAT, normalizedChat),
     ),
   );
 
