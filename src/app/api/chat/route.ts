@@ -50,7 +50,7 @@ async function handleDmCreation(currentUser: User, otherUserId: string) {
   const normalizedChat = {
     ...newChat,
     title: otherUser.username,
-    imageUrl: otherUser.avatarColor,
+    imageUrl: otherUser.imageUrl,
     avatarColor: otherUser.avatarColor,
   };
 
